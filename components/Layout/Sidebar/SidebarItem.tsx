@@ -41,7 +41,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 
   return (
     <div className="w-full flex flex-row items-center">
-      <div
+      {/* <div
         className="
        
         relative
@@ -55,20 +55,20 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         hover:bg-stone-300 
         hover:bg-opacity-10 
         cursor-pointer 
-        lg:hidden
+    ]
       "
       >
         <Icon size={28} color="white" />
         {alert ? (
           <BsDot className="text-sky-500 absolute -top-4 left-0" size={70} />
         ) : null}
-      </div>
+      </div> */}
       <div
         className="
         w-full
         relative
-        hidden 
-        lg:flex 
+       
+        flex 
         items-row 
         gap-4 
         p-4 
@@ -80,7 +80,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
       "
       >
         <Icon size={24} color="white" />
-        <p className="hidden lg:block text-white text-xl">{label}</p>
+        <p className=" text-white text-xl">{label}</p>
         {alert ? (
           <BsDot className="text-sky-500 absolute -top-4 left-0" size={70} />
         ) : null}

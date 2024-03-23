@@ -7,7 +7,7 @@ const SidebarLogo = () => {
   const router = useRouter();
 
   return (
-    <div onClick={() => router.push('/posts')} className="relative w-full mb-10 flex items-center justify-center gap-x-1">
+    <div onClick={() => router.push('/posts')} className="relative w-full mb-10 flex items-center justify-start gap-x-1">
       <h2 className="text-2xl font-[800]">Ivgam Blog</h2>
       <MdOutlineEditNote className="w-6 h-6 text-zinc-300" />
     </div>

@@ -1,38 +1,18 @@
-'use cleint';
-import { BiLogOut } from 'react-icons/bi';
-import { BsHouseFill, BsHeartFill } from 'react-icons/bs';
-import { FaUser } from 'react-icons/fa';
+'use cleint'
 
 import SidebarItem from './SidebarItem';
 import SidebarLogo from './SidebarLogo';
 import { Button } from '@/components/ui/button';
+import { items } from '@/config/nav';
 
 const Sidebar = () => {
-  const items = [
-    {
-      icon: BsHouseFill,
-      label: 'Главная',
-      href: '/',
-    },
-    {
-      icon: BsHeartFill,
-      label: 'Избранные',
-      href: '/notifications',
-      auth: true,
-    },
-    {
-      icon: FaUser,
-      label: 'Профиль',
-      href: `/users/`,
-      auth: true,
-    },
-  ];
 
+  
   return (
-    <div className="hidden lg:block md:col-span-1 h-full w-full  lg:pr-6 py-10">
-      <div className="w-full flex flex-col items-end">
+    <div className="hidden lg:block md:col-span-1 h-full w-full  lg:pr-6 py-7">
+      <div className="w-fullflex flex-col items-end">
+        <SidebarLogo />
         <div className="space-y-2 ">
-          <SidebarLogo />
           {items.map((item) => (
             <SidebarItem
               key={item.href}
