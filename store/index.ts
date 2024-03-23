@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import MobileSheetSlice from './slices/mobileSheetSlice';
+import authStatusSlice from './slices/authStatusSlice';
 
 export const store = configureStore({
   reducer: {
-    mobileSheet: MobileSheetSlice
+    mobileSheet: MobileSheetSlice,
+    authStatus: authStatusSlice
   },
 });
 

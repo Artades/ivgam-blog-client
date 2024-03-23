@@ -21,7 +21,7 @@ export const checkAuth = async () => {
     } else {
       return {
         redirect: {
-          destination: '/auth',
+          destination: '/',
           permanent: false,
         },
       };
@@ -31,7 +31,7 @@ export const checkAuth = async () => {
 
     return {
       redirect: {
-        destination: '/auth',
+        destination: '/',
         permanent: false,
       },
     };

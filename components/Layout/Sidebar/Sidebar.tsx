@@ -1,12 +1,14 @@
-'use cleint'
+'use client'
 
+import { useDispatch } from 'react-redux';
 import SidebarItem from './SidebarItem';
 import SidebarLogo from './SidebarLogo';
 import { Button } from '@/components/ui/button';
 import { items } from '@/config/nav';
+import { open } from '@/store/slices/mobileSheetSlice';
 
 const Sidebar = () => {
-
+const dispatch = useDispatch();
   
   return (
     <div className="hidden lg:block md:col-span-1 h-full w-full  lg:pr-6 py-7">
@@ -31,7 +33,7 @@ const Sidebar = () => {
             /> */}
 
           <div className="w-full flex flex-col space-y-2 py-10">
-            <Button size={'lg'} variant={'default'}>
+            <Button size={'lg'} variant={'default'} onClick={() => dispatch(open())}>
               Войти
             </Button>
             <Button size={'lg'} variant={'outline'}>

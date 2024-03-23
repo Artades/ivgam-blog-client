@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -10,18 +11,30 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { RootState } from '@/store';
+import { close, open } from '@/store/slices/mobileSheetSlice';
+import { X } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export function AuthModal() {
 
-  // const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
+  const {isOpened} = useSelector((state:RootState) => state.mobileSheet)
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <Dialog open={isOpened} onOpenChange={() => dispatch(open())}>
+      {/* <DialogTrigger asChild>
         <Button variant="outline">Edit Profile</Button>
-      </DialogTrigger>
+      </DialogTrigger> */}
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <div
+            onClick={() => dispatch(close())}
+            className="absolute top-5 right-5 cursor-pointer"
+          >
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </div>
+          <DialogTitle>Войти | Регистрация </DialogTitle>
           <DialogDescription>
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
