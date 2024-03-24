@@ -1,15 +1,22 @@
-'use client'
+'use client';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SidebarItem from './SidebarItem';
 import SidebarLogo from './SidebarLogo';
 import { Button } from '@/components/ui/button';
 import { items } from '@/config/nav';
-import { open } from '@/store/slices/mobileSheetSlice';
+import {
+  openLoginModal,
+  openRegisterModal,
+} from '@/store/slices/authModalsSlice';
+import { RootState } from '@/store';
+import LogoutButton from './LogoutButton';
 
 const Sidebar = () => {
-const dispatch = useDispatch();
-  
+  const dispatch = useDispatch();
+
+  const { authStatus } = useSelector((state: RootState) => state.authStatus);
+
   return (
     <div className="hidden lg:block md:col-span-1 h-full w-full  lg:pr-6 py-7">
       <div className="w-fullflex flex-col items-end">
@@ -31,15 +38,35 @@ const dispatch = useDispatch();
               icon={BiLogOut}
               label=""
             /> */}
-
-          <div className="w-full flex flex-col space-y-2 py-10">
-            <Button size={'lg'} variant={'default'} onClick={() => dispatch(open())}>
-              Войти
-            </Button>
-            <Button size={'lg'} variant={'outline'}>
-              Создать аккаунт
-            </Button>
-          </div>
+          {authStatus === 'not authenticated' ? (
+            <div className="w-full flex flex-col space-y-2 py-10">
+              <Button
+                size={'lg'}
+                variant={'default'}
+                onClick={() => dispatch(openLoginModal())}
+              >
+                Войти
+              </Button>
+              <Button
+                size={'lg'}
+                variant={'outline'}
+                onClick={() => dispatch(openRegisterModal())}
+              >
+                Создать аккаунт
+              </Button>
+            </div>
+          ) : (
+            <div className="w-full flex flex-col space-y-2 py-10">
+              <Button
+                size={'lg'}
+                variant={'default'}
+                onClick={() => dispatch(openLoginModal())}
+              >
+                Предложить статью
+              </Button>
+              <LogoutButton />
+            </div>
+          )}
         </div>
       </div>
     </div>

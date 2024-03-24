@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { checkAuth } from '@/helpers/checkAuth';
 import { useDispatch } from 'react-redux';
-import { close, open } from '@/store/slices/mobileSheetSlice';
 import { removeAuthStatus, setAuthStatus } from '@/store/slices/authStatusSlice';
+import { closeLoginModal, openLoginModal } from '@/store/slices/authModalsSlice';
 
 const useAuthentication = () => {
   const router = useRouter();
@@ -18,17 +18,18 @@ const useAuthentication = () => {
         console.log('Authentication result:', authStatus);
 
         if ('redirect' in authStatus) {
-         dispatch(open());
+           router.push('/');
+         dispatch(openLoginModal());
          dispatch(removeAuthStatus());
         } else if ('props' in authStatus) {
           router.push('/posts');
-          dispatch(close());
+          dispatch(closeLoginModal());
           dispatch(setAuthStatus());
         }
       } catch (error) {
         console.error('Authentication error:', error);
-        // router.push('/auth');
-        dispatch(open());
+        router.push('/');
+        dispatch(openLoginModal());
       }
     };
 
