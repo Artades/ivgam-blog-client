@@ -1,4 +1,5 @@
 'use client';
+import * as Api from '@/api';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -32,6 +33,8 @@ import {
   closeRegisterModal,
   openRegisterModal,
 } from '@/store/slices/authModalsSlice';
+import { setAccessToken } from '@/helpers/cookies';
+import { showErrorToast } from '../Error/showErrorToast';
 
 const registerFormSchema = z.object({
   first_name: z.string().min(3, {
@@ -69,7 +72,43 @@ export function RegisterModal() {
 
   const handleRegister = async (
     credentials: z.infer<typeof registerFormSchema>,
-  ) => {};
+  ) => {
+    try {
+      setLoading(true);
+      const { first_name, last_name, ...restCredentials } = credentials;
+      const fullName: string = `${first_name} ${last_name}`;
+
+      // Adding the "fullName" field to credentials
+      const updatedCredentials = { ...restCredentials, name: fullName };
+      console.log(registerForm.getValues());
+
+      const response = await Api.auth.register(updatedCredentials);
+      const token = response.accessToken;
+      const email = response.userEmailFromToken;
+
+      localStorage.setItem('userEmail', email);
+      setAccessToken(token);
+
+      dispatch(closeRegisterModal());
+      registerForm.reset();
+      router.push('/posts');
+    } catch (error: any) {
+      if (error.response) {
+        if (error.response.status === 400) {
+          showErrorToast('Пользователь с таким email уже существует');
+        } else {
+          showErrorToast('Необработанная ошибка сервера');
+          // Additional actions for other error codes
+        }
+      } else if (error.request) {
+        showErrorToast('Нет ответа от сервера');
+      } else {
+        console.log('Неизвестная ошибка', error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <Dialog
       open={isRegisterModalOpened}

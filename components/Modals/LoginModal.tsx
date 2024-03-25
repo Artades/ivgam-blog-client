@@ -1,5 +1,5 @@
 'use client';
-import * as Api from "@/api";
+import * as Api from '@/api';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -32,8 +32,8 @@ import {
   FormMessage,
 } from '../ui/form';
 import Link from 'next/link';
-import { setAccessToken } from "@/helpers/cookies";
-import { showErrorToast } from "../Error/showErrorToast";
+import { setAccessToken } from '@/helpers/cookies';
+import { showErrorToast } from '../Error/showErrorToast';
 
 const loginFormSchema = z.object({
   email: z.string().min(4, {
@@ -61,44 +61,42 @@ export function LoginModal() {
     },
   });
 
- const handleLogin = async (credentials: z.infer<typeof loginFormSchema>) => {
-   try {
-     setLoading(true);
-     const response = await Api.auth.login(credentials);
-     const token = response.accessToken;
-     const email = response.userEmailFromToken;
+  const handleLogin = async (credentials: z.infer<typeof loginFormSchema>) => {
+    try {
+      setLoading(true);
+      const response = await Api.auth.login(credentials);
+      const token = response.accessToken;
+      const email = response.userEmailFromToken;
 
-     localStorage.setItem('userEmail', email);
-     setAccessToken(token);
+      localStorage.setItem('userEmail', email);
+      setAccessToken(token);
 
-     router.push('/posts');
-     dispatch(closeLoginModal())
-     loginForm.reset()
-   } catch (error: any) {
-     
+      router.push('/posts');
+      dispatch(closeLoginModal());
+      loginForm.reset();
+    } catch (error: any) {
+      if (error.response) {
+        // Ошибка с ответом от сервера (HTTP-код не 2xx)
+        if (error.response.status === 400) {
+          showErrorToast('Пользователь не существует в базе данных');
 
-     if (error.response) {
-       // Ошибка с ответом от сервера (HTTP-код не 2xx)
-       if (error.response.status === 400) {
-         showErrorToast('Пользователь не существует в базе данных');
-
-         // Дополнительные действия при ошибке 400
-       } else if (error.response.status === 401) {
-         showErrorToast('Неверный логин или пароль');
-       } else {
-         showErrorToast('Необработанная ошибка сервера');
-       }
-     } else if (error.request) {
-       // Запрос был сделан, но нет ответа
-       showErrorToast('Нет ответа от сервера');
-     } else {
-       // Общие ошибки
-       console.log('Неизвестная ошибка', error.message);
-     }
-   }finally{
-    setLoading(false);
-   }
- };
+          // Дополнительные действия при ошибке 400
+        } else if (error.response.status === 401) {
+          showErrorToast('Неверный логин или пароль');
+        } else {
+          showErrorToast('Необработанная ошибка сервера');
+        }
+      } else if (error.request) {
+        // Запрос был сделан, но нет ответа
+        showErrorToast('Нет ответа от сервера');
+      } else {
+        // Общие ошибки
+        console.log('Неизвестная ошибка', error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Dialog
@@ -133,7 +131,7 @@ export function LoginModal() {
                   {/* <FormLabel>Email</FormLabel> */}
                   <FormControl>
                     <Input
-                      className="text-zinc-700"
+                      className=""
                       placeholder="Email"
                       {...field}
                     />
@@ -151,7 +149,8 @@ export function LoginModal() {
                   {/* <FormLabel>Пароль</FormLabel> */}
                   <FormControl>
                     <Input
-                      className="text-zinc-700"
+                      type="password"
+                      className=""
                       placeholder="Пароль"
                       {...field}
                     />
