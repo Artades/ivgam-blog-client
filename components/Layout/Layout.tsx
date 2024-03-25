@@ -28,7 +28,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <Sidebar />
               <div
                 className={cn(
-                  ' w-full col-span-6 lg:col-span-4 lg:border-x-[1px]  border-neutral-800 ',
+                  ' w-full col-span-6 lg:col-span-4 lg:border-x-[1px]  border-neutral-800 h-full bg-black',
                 )}
               >
                 {children}
