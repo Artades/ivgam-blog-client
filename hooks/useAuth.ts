@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { removeAuthStatus, setAuthStatus } from '@/store/slices/authStatusSlice';
 import { closeLoginModal, openLoginModal } from '@/store/slices/authModalsSlice';
 
-const useAuthentication = () => {
+const useAuthentication = (direction?: string) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -22,7 +22,12 @@ const useAuthentication = () => {
          dispatch(openLoginModal());
          dispatch(removeAuthStatus());
         } else if ('props' in authStatus) {
-          router.push('/posts');
+          if(!direction){
+            router.push('/posts');
+          } else {
+            router.push(direction)
+          }
+          
           dispatch(closeLoginModal());
           dispatch(setAuthStatus());
         }

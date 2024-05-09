@@ -10,10 +10,7 @@ import { LoginModal } from '../Modals/LoginModal';
 import { RegisterModal } from '../Modals/RegisterModal';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  useAuthentication();
-  const { authStatus } = useSelector((state: RootState) => state.authStatus);
-
-  console.log(authStatus);
+  
   return (
     <>
       <div

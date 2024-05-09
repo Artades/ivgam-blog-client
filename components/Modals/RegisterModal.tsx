@@ -142,7 +142,7 @@ export function RegisterModal() {
                     {/* <FormLabel>Email</FormLabel> */}
                     <FormControl>
                       <Input
-                        className="text-zinc-700"
+                      
                         placeholder="Имя"
                         {...field}
                       />
@@ -160,7 +160,7 @@ export function RegisterModal() {
                     {/* <FormLabel>Email</FormLabel> */}
                     <FormControl>
                       <Input
-                        className="text-zinc-700"
+                    
                         placeholder="Фамилия"
                         {...field}
                       />
@@ -179,7 +179,7 @@ export function RegisterModal() {
                   {/* <FormLabel>Email</FormLabel> */}
                   <FormControl>
                     <Input
-                      className="text-zinc-700"
+                     
                       placeholder="Email"
                       {...field}
                     />
@@ -197,7 +197,7 @@ export function RegisterModal() {
                   {/* <FormLabel>Пароль</FormLabel> */}
                   <FormControl>
                     <Input
-                      className="text-zinc-700"
+                    
                       placeholder="Пароль"
                       {...field}
                     />

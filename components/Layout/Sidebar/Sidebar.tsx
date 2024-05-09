@@ -11,9 +11,12 @@ import {
 } from '@/store/slices/authModalsSlice';
 import { RootState } from '@/store';
 import LogoutButton from './LogoutButton';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const { authStatus } = useSelector((state: RootState) => state.authStatus);
 
@@ -25,19 +28,12 @@ const Sidebar = () => {
           {items.map((item) => (
             <SidebarItem
               key={item.href}
-              // alert={item.alert}
-              // auth={item.auth}
               href={item.href}
               icon={item.icon}
               label={item.label}
             />
           ))}
 
-          {/* <SidebarItem
-              // onClick={() => signOut()}
-              icon={BiLogOut}
-              label=""
-            /> */}
           {authStatus === 'not authenticated' ? (
             <div className="w-full flex flex-col space-y-2 py-10">
               <Button
@@ -57,13 +53,12 @@ const Sidebar = () => {
             </div>
           ) : (
             <div className="w-full flex flex-col space-y-2 py-10">
-              <Button
-                size={'lg'}
-                variant={'default'}
-                onClick={() => dispatch(openLoginModal())}
-              >
-                Предложить статью
-              </Button>
+              
+                <Button size={'lg'} variant={'default'} onClick={() => router.push("/suggest")}>
+                  Предложить пост
+                </Button>
+           
+
               <LogoutButton />
             </div>
           )}
