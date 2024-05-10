@@ -5,7 +5,7 @@ import Helmet from '../Helmet/Helmet';
 import { postsBreadcrumbs } from './constants';
 
 const Posts = () => {
-   
+   useAuthentication()
     return (
       <div className="w-full">
         <Helmet pageTitle="Посты" breadCrumbs={postsBreadcrumbs} />

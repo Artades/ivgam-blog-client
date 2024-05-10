@@ -8,8 +8,10 @@ import { RootState } from '@/store';
 import { cn } from '@/lib/utils';
 import { LoginModal } from '../Modals/LoginModal';
 import { RegisterModal } from '../Modals/RegisterModal';
+import { SuccessModal } from '../Modals/SuccessModal';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  
   
   return (
     <>
@@ -25,7 +27,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <Sidebar />
               <div
                 className={cn(
-                  ' w-full col-span-6 lg:col-span-4 lg:border-x-[1px]  border-neutral-800 h-full bg-black',
+                  ' w-full scrollbar-track-zinc-800 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-thumb-rounded-full   max-h-screen overflow-auto col-span-6 lg:col-span-4 lg:border-x-[1px]  border-neutral-800 h-full bg-black',
                 )}
               >
                 {children}
@@ -37,6 +39,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </div>
       <LoginModal />
       <RegisterModal />
+      <SuccessModal />
     </>
   );
 };
