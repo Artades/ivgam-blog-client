@@ -1,7 +1,7 @@
 import axios from 'axios';
 import cookie from 'cookie';
 
-axios.defaults.baseURL = process.env.api_url;
+axios.defaults.baseURL = 'http://localhost:4000/api';
 
 axios.interceptors.request.use(async (config) => {
   if (typeof window !== 'undefined') {

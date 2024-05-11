@@ -34,6 +34,7 @@ import {
 import Link from 'next/link';
 import { setAccessToken } from '@/helpers/cookies';
 import { showErrorToast } from '../Error/showErrorToast';
+import * as Actions from '@/actions';
 
 const loginFormSchema = z.object({
   email: z.string().min(4, {
@@ -69,8 +70,8 @@ export function LoginModal() {
       const email = response.userEmailFromToken;
 
       localStorage.setItem('userEmail', email);
-      setAccessToken(token);
-
+      const action_response = await Actions.roles.getRole(token);
+      console.log(action_response);
       router.push('/posts');
       dispatch(closeLoginModal());
       loginForm.reset();
@@ -130,11 +131,7 @@ export function LoginModal() {
                 <FormItem>
                   {/* <FormLabel>Email</FormLabel> */}
                   <FormControl>
-                    <Input
-                      className=""
-                      placeholder="Email"
-                      {...field}
-                    />
+                    <Input className="" placeholder="Email" {...field} />
                   </FormControl>
 
                   <FormMessage />
