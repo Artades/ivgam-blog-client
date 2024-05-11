@@ -1,26 +1,12 @@
 'use client';
 import * as Api from '@/api';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ClipLoader } from 'react-spinners';
-import { RootState } from '@/store';
-import {
-  closeLoginModal,
-  openLoginModal,
-} from '@/store/slices/authModalsSlice';
-import { X } from 'lucide-react';
 import * as z from 'zod';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/navigation';
+import { useDispatch} from 'react-redux';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,8 +18,6 @@ import {
   FormLabel,
   FormMessage,
 } from '../ui/form';
-import Link from 'next/link';
-import { setAccessToken } from '@/helpers/cookies';
 import { showErrorToast } from '../Error/showErrorToast';
 import { Textarea } from '../ui/textarea';
 import { openSuccessModal } from '@/store/slices/successModalSlice';
@@ -49,12 +33,9 @@ const suggestFormSchema = z.object({
 
 export function SuggestForm() {
   const dispatch = useDispatch();
-  const { isLoginModalOpened } = useSelector(
-    (state: RootState) => state.loginModal,
-  );
+
 
   const [isLoading, setLoading] = useState<boolean>(false);
-  const router = useRouter();
   const suggestForm = useForm<z.infer<typeof suggestFormSchema>>({
     resolver: zodResolver(suggestFormSchema),
 
@@ -68,6 +49,7 @@ export function SuggestForm() {
     credentials: z.infer<typeof suggestFormSchema>,
   ) => {
     try {
+      
       setLoading(true);
       let userEmailFromLocalStorage: string | null = '';
       if (typeof window !== 'undefined')
@@ -77,10 +59,17 @@ export function SuggestForm() {
         ...credentials,
         userEmail: userEmailFromLocalStorage as string,
       };
-      const response: { success: boolean } =
-        await Api.posts.suggest(updatedCredentials);
 
-      localStorage.setItem('suggestions', credentials.title);
+      await Api.posts.suggest(updatedCredentials);
+
+      const suggestions: string | null = localStorage.getItem('suggestions');
+      let suggestionArray: string[] | undefined = suggestions?.split(',');
+      if (suggestions && suggestionArray && suggestionArray.length) {
+        suggestionArray.push(credentials.title);
+        localStorage.setItem('suggestions', suggestionArray.join(','));
+      } else {
+        localStorage.setItem('suggestions', credentials.title);
+      }
 
       dispatch(openSuccessModal());
       suggestForm.reset();
@@ -104,7 +93,12 @@ export function SuggestForm() {
             <FormItem>
               <FormLabel className="text-xl">Название</FormLabel>
               <FormControl>
-                <Input className="" placeholder="Название поста" {...field} />
+                <Input
+                  disabled={isLoading}
+                  className=""
+                  placeholder="Название поста"
+                  {...field}
+                />
               </FormControl>
 
               <FormMessage />
@@ -119,6 +113,7 @@ export function SuggestForm() {
               <FormLabel className="text-xl">Описание</FormLabel>
               <FormControl>
                 <Textarea
+                  disabled={isLoading}
                   className="min-h-[400px] resize-none"
                   placeholder="Описание вашего поста"
                   {...field}

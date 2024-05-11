@@ -1,17 +1,11 @@
-"use client"
+'use client';
 import { Button } from '@/components/ui/button';
 
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import Sidebar from '../Sidebar/Sidebar';
 import SidebarItem from '../Sidebar/SidebarItem';
 import SidebarLogo from '../Sidebar/SidebarLogo';
 import { items } from '@/config/nav';
@@ -20,13 +14,18 @@ import LogoutButton from '../Sidebar/LogoutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { RootState } from '@/store';
-import { openLoginModal, openRegisterModal } from '@/store/slices/authModalsSlice';
+import {
+  openLoginModal,
+  openRegisterModal,
+} from '@/store/slices/authModalsSlice';
+import useRole from '@/hooks/useRole';
 
 export function MobileSheet() {
   const dispatch = useDispatch();
   const router = useRouter();
 
   const { authStatus } = useSelector((state: RootState) => state.authStatus);
+  const isAuthor = useRole('author');
 
   return (
     <Sheet>
@@ -41,19 +40,11 @@ export function MobileSheet() {
               {items.map((item) => (
                 <SidebarItem
                   key={item.href}
-                  // alert={item.alert}
-                  // auth={item.auth}
                   href={item.href}
                   icon={item.icon}
                   label={item.label}
                 />
               ))}
-
-              {/* <SidebarItem
-              // onClick={() => signOut()}
-              icon={BiLogOut}
-              label=""
-            /> */}
 
               {authStatus === 'not authenticated' ? (
                 <div className="w-full flex flex-col space-y-2 py-10">
@@ -74,13 +65,23 @@ export function MobileSheet() {
                 </div>
               ) : (
                 <div className="w-full flex flex-col space-y-2 py-10">
-                  <Button
-                    size={'lg'}
-                    variant={'default'}
-                    onClick={() => router.push('/suggest')}
-                  >
-                    Предложить пост
-                  </Button>
+                  {!isAuthor ? (
+                    <Button
+                      size={'lg'}
+                      variant={'default'}
+                      onClick={() => router.push('/suggest')}
+                    >
+                      Предложить пост
+                    </Button>
+                  ) : (
+                    <Button
+                      size={'lg'}
+                      variant={'default'}
+                      onClick={() => router.push('/create')}
+                    >
+                      Создать пост
+                    </Button>
+                  )}
 
                   <LogoutButton />
                 </div>

@@ -26,11 +26,13 @@ export const setAccessToken = (token: string) => {
 };
 
 
-export const burnAccessToken = () => {
+export const burnAuthData = () => {
   cookies().delete('accessToken');
+  cookies().delete("role")
 };
 
 
 export const  getRole = () => {
   return cookies().get("role");
 }
+
