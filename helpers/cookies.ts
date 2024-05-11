@@ -29,3 +29,8 @@ export const setAccessToken = (token: string) => {
 export const burnAccessToken = () => {
   cookies().delete('accessToken');
 };
+
+
+export const  getRole = () => {
+  return cookies().get("role");
+}
