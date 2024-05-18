@@ -11,3 +11,7 @@ export const suggest = async (
 export const getAllPosts = async (): Promise<PostItemProps[]> => {
   return (await axios.get(`/posts/getAll`)).data;
 };
+
+export const likePost = async (postId: number, userId: number): Promise<{success: boolean}> => {
+  return (await axios.post(`/${postId}/addToFavorites/${userId}`)).data;
+}

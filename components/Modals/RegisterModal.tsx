@@ -35,7 +35,7 @@ import {
 } from '@/store/slices/authModalsSlice';
 import { setAccessToken } from '@/helpers/cookies';
 import { showErrorToast } from '../Error/showErrorToast';
-
+import * as Actions from '@/actions';
 const registerFormSchema = z.object({
   first_name: z.string().min(3, {
     message: 'Имя невалидно',
@@ -87,7 +87,8 @@ export function RegisterModal() {
       const email = response.userEmailFromToken;
 
       localStorage.setItem('userEmail', email);
-      setAccessToken(token);
+      const action_response = await Actions.roles.getRole(token);
+      console.log(action_response);
 
       dispatch(closeRegisterModal());
       registerForm.reset();
@@ -141,11 +142,7 @@ export function RegisterModal() {
                   <FormItem>
                     {/* <FormLabel>Email</FormLabel> */}
                     <FormControl>
-                      <Input
-                      
-                        placeholder="Имя"
-                        {...field}
-                      />
+                      <Input placeholder="Имя" {...field} />
                     </FormControl>
 
                     <FormMessage />
@@ -159,11 +156,7 @@ export function RegisterModal() {
                   <FormItem>
                     {/* <FormLabel>Email</FormLabel> */}
                     <FormControl>
-                      <Input
-                    
-                        placeholder="Фамилия"
-                        {...field}
-                      />
+                      <Input placeholder="Фамилия" {...field} />
                     </FormControl>
 
                     <FormMessage />
@@ -178,11 +171,7 @@ export function RegisterModal() {
                 <FormItem>
                   {/* <FormLabel>Email</FormLabel> */}
                   <FormControl>
-                    <Input
-                     
-                      placeholder="Email"
-                      {...field}
-                    />
+                    <Input placeholder="Email" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -196,11 +185,7 @@ export function RegisterModal() {
                 <FormItem>
                   {/* <FormLabel>Пароль</FormLabel> */}
                   <FormControl>
-                    <Input
-                    
-                      placeholder="Пароль"
-                      {...field}
-                    />
+                    <Input placeholder="Пароль" {...field} />
                   </FormControl>
 
                   <FormMessage />
