@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io';
 import { Button } from '@/components/ui/button';
 
-const FavoriteButton = () => {
+interface FavoriteButtonProps {
+  isLiked: boolean;
+  amount: number
+}
+const FavoriteButton:FC<FavoriteButtonProps> = ({isLiked, amount}) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(isLiked);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -21,12 +25,12 @@ const FavoriteButton = () => {
   return (
     <div className="group flex items-center space-x-2">
       <IoMdHeartEmpty
-        className={`size-7 font-bold cursor-pointer ${isHovered ? 'text-rose-500' : ''}`}
+        className={`size-7 font-bold cursor-pointer ${isHovered  ? 'text-rose-500' : ''}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
       />
-      <span className="text-md">{isFavorite ? '1' : '0'}</span>
+      <span className="text-md">{amount}</span>
     </div>
   );
 };

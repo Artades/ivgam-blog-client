@@ -1,10 +1,11 @@
-'use client ';
+'use client';
 
 import { PostItemProps } from '@/types/post.interface';
 import React, { FC, useState, useEffect } from 'react';
 import PostCard from './PostCard/PostCard';
 import { useQuery } from '@tanstack/react-query';
 import * as Api from '@/api';
+import { UserProps } from '@/types/user.interface';
 
 interface PostsGridProps {
   posts: PostItemProps[];
@@ -22,17 +23,21 @@ const PostsGrid: FC<PostsGridProps> = ({ posts }) => {
     }
   }, []);
 
-  const { data, isError, isFetching, isSuccess } = useQuery({
+  const { data, isError, isFetching } = useQuery({
     queryKey: ['user'],
-    queryFn: async () => await Api.users.getUserByEmail(userEmail),
+    queryFn: userEmail
+      ? async () => await Api.users.getUserByEmail(userEmail)
+      : async () => ({}),
+    enabled: !!userEmail,
   });
 
-  const user = data ?? {};
+  const user = (data as UserProps) ?? ({} as UserProps);
+  const userFavorites = user.favorites ?? [];
 
   return (
-    <div className="grid sm:grid-cols-2 grid-cols-1 w-full gap-7 ">
+    <div className="grid sm:grid-cols-2 grid-cols-1 w-full gap-7">
       {posts.map((post) => (
-        <PostCard key={post.id} data={post} />
+        <PostCard key={post.id} data={post} userFavorites={userFavorites} />
       ))}
     </div>
   );
