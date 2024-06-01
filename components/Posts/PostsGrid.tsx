@@ -9,9 +9,9 @@ interface PostsGridProps {
 const PostsGrid: FC<PostsGridProps> = ({ posts }) => {
   
   return (
-    <div className="grid sm:grid-cols-2 grid-cols-1   gap-6 p-4">
+    <div className="grid  auto-rows-[30rem] sm:auto-rows-[10rem] grid-cols-1 sm:grid-cols-2 max-w-full gap-6 p-4">
       {posts.map((post) => (
-        <PostCard key={post.id} postId={post.id}  />
+        <PostCard key={post.id} postId={post.id} />
       ))}
     </div>
   );

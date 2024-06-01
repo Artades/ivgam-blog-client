@@ -18,7 +18,7 @@ const Helmet: FC<HelmetProps> = ({ pageTitle, breadCrumbs }) => {
           <h2 className="sm:text-3xl  text-2xl text-pretty font-bold text-white">
             {pageTitle}
           </h2>
-          <nav className='sm:hidden block'>
+          <nav className='lg:hidden block'>
             <MobileSheet /> 
           </nav>
         </div>

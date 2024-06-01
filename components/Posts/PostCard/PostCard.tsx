@@ -58,15 +58,15 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
 
   return (
     <Card
-      className={`w-full h-[450px]  rounded-lg border border-zinc-700 `}
+      className={`w-full   rounded-lg border border-zinc-700 ${postId % 2 === 0 ? 'sm:row-span-3'  : 'sm:row-span-2'}`}
       style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
     >
-      <div className="w-full h-full grid grid-cols-1 grid-rows-6">
+      <div className="w-full h-full grid grid-cols-1 grid-rows-6 ">
         <div className="row-span-2">
           <PostImage id={post.id} />
         </div>
         <div
-          className={`w-full row-span-4 flex flex-col justify-between items-start p-5`}
+          className={`w-full row-span-4 flex flex-col justify-between space-y-5 items-start p-5`}
         >
           <div className="flex flex-col items-start gap-3">
             <h3 className="text-2xl font-bold">{post.title}</h3>

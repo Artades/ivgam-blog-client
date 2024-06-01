@@ -2,9 +2,6 @@
 import React from 'react';
 import Sidebar from './Sidebar/Sidebar';
 import Wrapper from './Wrapper/Wrapper';
-import useAuthentication from '@/hooks/useAuth';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
 import { cn } from '@/lib/utils';
 import { LoginModal } from '../Modals/LoginModal';
 import { RegisterModal } from '../Modals/RegisterModal';
