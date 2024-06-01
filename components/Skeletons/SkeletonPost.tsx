@@ -1,10 +1,9 @@
 import React from 'react';
 
-const SkeletonsGrid = () => {
+const SkeletonPost = () => {
     return (
-      <div className="grid sm:grid-cols-2 grid-cols-1 w-full gap-7">
-        {Array.from({ length: 6 }).map((_, index) => (
-          <div key={index} className="border border-zinc-800 shadow rounded-md p-10 max-w-full w-full ">
+      
+          <div className="border border-zinc-800 shadow rounded-md p-10 max-w-full w-full ">
             <div className="animate-pulse flex space-x-4">
               <div className="rounded-full bg-zinc-700 h-10 w-10"></div>
               <div className="flex-1 space-y-6 py-1">
@@ -19,9 +18,8 @@ const SkeletonsGrid = () => {
               </div>
             </div>
           </div>
-        ))}
-      </div>
+
     );
 };
 
-export default SkeletonsGrid;
+export default SkeletonPost;

@@ -6,16 +6,15 @@ import { postsBreadcrumbs } from './constants';
 import PostsGrid from './PostsGrid';
 import { useQuery } from '@tanstack/react-query';
 import * as Api from '@/api';
-import SkeletonsGrid from '../Skeletons/SkeletonsGrid';
 import CustomError from '../Error/CustomError';
 
 const Posts = () => {
   useAuthentication();
 
-  const { data, isError, isFetching, isSuccess } = useQuery({
-    queryKey: ['posts'],
-    queryFn: async () => await Api.posts.getAllPosts(),
-  });
+   const { data, isError, isFetching, isSuccess } = useQuery({
+     queryKey: ['posts'],
+     queryFn: Api.posts.getAllPosts,
+   });
 
   const posts = data ?? [];
 
@@ -24,7 +23,6 @@ const Posts = () => {
       <Helmet pageTitle="Посты" breadCrumbs={postsBreadcrumbs} />
       <div className="sm:px-5 py-5">
         {isSuccess && <PostsGrid posts={posts} />}
-        {isFetching && <SkeletonsGrid />}
       </div>
       {isError && (
         <CustomError
