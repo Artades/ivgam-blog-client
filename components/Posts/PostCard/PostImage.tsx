@@ -14,7 +14,7 @@ const PostImage: FC<PostImageProps> = ({ id }) => {
   }, [id]);
   const testSRC = '/assets/test.png';
 
-  return <Image src={testSRC} priority width={400} height={400}  alt={`Image for post #${id}`}  quality={100} className=' rounded-t-lg w-full h-full '/>;
+  return <Image src={testSRC} priority width={400} height={400}  alt={`Image for post #${id}`}  quality={100} className='object-cover rounded-t-lg w-full h-full '/>;
 
 };
 

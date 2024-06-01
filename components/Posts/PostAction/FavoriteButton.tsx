@@ -28,11 +28,11 @@ const FavoriteButton: FC<FavoriteButtonProps> = ({
   const handleToggleFavorite = useCallback(async () => {
     if (isLoading) return;
 
-    // Сохраняем предыдущее состояние для отката в случае ошибки
+   
     const previousIsFavorite = isFavorite;
     const previousLikeCount = likeCount;
 
-    // Обновляем состояние локально
+    
     setIsFavorite(!isFavorite);
     setLikeCount((prevCount) => prevCount + (isFavorite ? -1 : 1));
 
