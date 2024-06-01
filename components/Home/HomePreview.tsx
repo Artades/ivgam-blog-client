@@ -34,7 +34,8 @@ const HomePreview = () => {
     },
   ];
   return (
-    <div className="w-full py-10 md:p-10 flex flex-col items-center justify-center h-full">
+    <div className="w-full sm:h-screen py-10 md:p-10 flex flex-col items-center justify-center bg-grid relative">
+      {/* <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black  [mask-image:radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.8))]"></div> */}
       <div className="w-full text-white font-bold text-center gap-y-10 flex flex-col items-center justify-center h-full">
         <h1 className="text-3xl md:text-4xl font-extrabold">Ivgam Blog</h1>
 
