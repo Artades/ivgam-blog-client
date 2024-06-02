@@ -55,7 +55,7 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
       />
     );
   }
-
+console.log("Data: ", post)
   return (
     <Card
       className={`w-full   rounded-lg border border-zinc-700 ${postId % 2 === 0 ? 'sm:row-span-3'  : 'sm:row-span-2'}`}
@@ -63,7 +63,7 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
     >
       <div className="w-full h-full grid grid-cols-1 grid-rows-6 ">
         <div className="row-span-2">
-          <PostImage id={post.id} />
+          <PostImage id={post.id} src={post.imageUrl} />
         </div>
         <div
           className={`w-full row-span-4 flex flex-col justify-between space-y-5 items-start p-5`}

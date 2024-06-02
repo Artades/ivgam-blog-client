@@ -5,7 +5,8 @@ export interface PostItemProps {
   dateOfCreation: string;
   dateOfUpdation: string;
   topic: string;
-  hashtags: string[];
+  hashtags: string;
   views: number;
   likesAmount: number;
+  imageUrl: string;
 }
