@@ -19,6 +19,7 @@ import {
   openRegisterModal,
 } from '@/store/slices/authModalsSlice';
 import useRole from '@/hooks/useRole';
+import MenuIcon from './MenuIcon';
 
 export function MobileSheet() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ export function MobileSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild className="p-2 bg-zinc-900 rounded-lg">
-        <HiOutlineMenuAlt2 className="w-10 h-10 text-white" />
+        <MenuIcon />
       </SheetTrigger>
       <SheetContent side={'left'}>
         <div className="col-span-1 h-full w-full ">

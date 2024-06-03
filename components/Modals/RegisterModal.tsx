@@ -87,8 +87,8 @@ export function RegisterModal() {
       const email = response.userEmailFromToken;
 
       localStorage.setItem('userEmail', email);
-      const action_response = await Actions.roles.getRole(token);
-      console.log(action_response);
+      // const action_response = await Actions.roles.getRole(token);
+      // console.log(action_response);
 
       dispatch(closeRegisterModal());
       registerForm.reset();

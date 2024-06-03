@@ -9,7 +9,7 @@ import * as Api from '@/api';
 import CustomError from '../Error/CustomError';
 
 const Posts = () => {
-  useAuthentication();
+  useAuthentication("/posts");
 
    const { data, isError, isFetching, isSuccess } = useQuery({
      queryKey: ['posts'],

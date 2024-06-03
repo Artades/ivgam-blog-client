@@ -1,11 +1,13 @@
-// useRole.ts
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { checkRole } from '@/helpers/checkRole';
 
-const useRole = (desiredRole: string) => {
-  const [response, setResponse] = useState<boolean>(false);
+const useRole = (
+  desiredRole: string,
+  cancelDestination?: string,
+): boolean | null => {
+  const [response, setResponse] = useState<boolean | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,15 +20,19 @@ const useRole = (desiredRole: string) => {
           setResponse(true);
         } else if ('redirect' in roleStatus) {
           setResponse(false);
+          if (cancelDestination) {
+            router.push(cancelDestination);
+          }
         }
       } catch (error) {
         console.error('Role error:', error);
-        setResponse(false)
+        setResponse(false);
+        router.push('/');
       }
     };
 
     handleCheckRole();
-  }, [router]);
+  }, [desiredRole, router]);
 
   return response;
 };

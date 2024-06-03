@@ -15,7 +15,7 @@ const useAuthentication = (direction?: string) => {
     const checkAuthentication = async () => {
       try {
         const authStatus = await checkAuth();
-        console.log('Authentication result:', authStatus);
+        // console.log('Authentication result:', authStatus);
 
         if ('redirect' in authStatus) {
            router.push('/');

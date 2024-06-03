@@ -15,7 +15,7 @@ const useLike = ({ postId, userFavorites }: UseLikeHookArguments) => {
     const handleCheckLike = async () => {
       try {
         const likeStatus = checkLike(postId, userFavorites);
-        console.log('Like result:', likeStatus);
+        // console.log('Like result:', likeStatus);
 
         if ('props' in likeStatus) {
           setResponse(true);

@@ -1,3 +1,4 @@
+"use client"
 import { useDispatch, useSelector } from 'react-redux';
 import SidebarItem from './SidebarItem';
 import SidebarLogo from './SidebarLogo';
@@ -9,7 +10,6 @@ import {
 } from '@/store/slices/authModalsSlice';
 import { RootState } from '@/store';
 import LogoutButton from './LogoutButton';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import useRole from '@/hooks/useRole';
 

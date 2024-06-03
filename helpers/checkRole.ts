@@ -1,29 +1,36 @@
 "use server"
-import {  getRole } from './cookies';
+import { checkAcess } from '@/actions/roles';
+import {  getAccessToken, getRole } from './cookies';
 
-export const checkRole = async (desiredRole: string) => {
-    const role:any = await getRole();
-    ;
-  
-  try {
-    // Check if the user is authenticated based on a cookie key
-    if (role.value === desiredRole) {
-      return {
-        props: {
-            role: role.value
-        },
-      };
-    } else {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        },
-      };
-    }
-  } catch (err) {
-    console.error('Role analyzing error:', err);
+interface CheckRoleResponse {
+  props?: { access: boolean };
+  redirect?: { destination: string; permanent: boolean };
+}
 
+export const checkRole = async (
+  desiredRole: string,
+): Promise<CheckRoleResponse> => {
+  const token = await getAccessToken();
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  const access = await checkAcess(token, desiredRole);
+
+  console.log('RESPONSE /api/role: ', access);
+
+  if (access.access) {
+    return {
+      props: {
+        access: true,
+      },
+    };
+  } else {
     return {
       redirect: {
         destination: '/',
@@ -32,3 +39,4 @@ export const checkRole = async (desiredRole: string) => {
     };
   }
 };
+

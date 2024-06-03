@@ -4,7 +4,7 @@ import { getAccessToken } from "./cookies";
 export const checkAuth = async () => {
   const authToken: string | undefined  = await getAccessToken()
     .then((result) => {
-      console.log('Access Token :', result.accessToken);
+      // console.log('Access Token :', result.accessToken);
       return result.accessToken;
     })
     .catch((error) => {

@@ -31,8 +31,8 @@ import {
   FormItem,
   FormMessage,
 } from '../ui/form';
-import Link from 'next/link';
-import { setAccessToken } from '@/helpers/cookies';
+// import Link from 'next/link';
+// import { setAccessToken } from '@/helpers/cookies';
 import { showErrorToast } from '../Error/showErrorToast';
 import * as Actions from '@/actions';
 
@@ -68,10 +68,11 @@ export function LoginModal() {
       const response = await Api.auth.login(credentials);
       const token = response.accessToken;
       const email = response.userEmailFromToken;
-
+      const token_response = await Actions.token.saveToken(token);
+      console.log("Token_Response: ", token_response)
       localStorage.setItem('userEmail', email);
-      const action_response = await Actions.roles.getRole(token);
-      console.log(action_response);
+      // const action_response = await Actions.roles.getRole(token);
+      // console.log(action_response);
       router.push('/posts');
       dispatch(closeLoginModal());
       loginForm.reset();

@@ -55,7 +55,7 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
       />
     );
   }
-console.log("Data: ", post)
+// console.log("Data: ", post)
   return (
     <Card
       className={`w-full   rounded-lg border border-zinc-700 ${postId % 2 === 0 ? 'sm:row-span-3'  : 'sm:row-span-2'}`}
