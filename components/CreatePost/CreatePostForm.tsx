@@ -21,26 +21,39 @@ import {
 import { showErrorToast } from '../Error/showErrorToast';
 import { Textarea } from '../ui/textarea';
 import { openSuccessModal } from '@/store/slices/successModalSlice';
+import HashtagInput from './FormUI/HashtagInput';
 
 const suggestFormSchema = z.object({
+  topic: z.string().min(4, {
+    message: 'Укажите топик поста.Минимум 4 символа',
+  }),
   title: z.string().min(4, {
     message: 'Укажите заголовок вашей идеи.Минимум 4 символа',
   }),
   description: z.string().min(20, {
     message: 'Подробно опишите вашу идею.Минимум 20 символов',
   }),
+  hastags: z.any(),
+  image: z.any(),
 });
 
 export function CreatePostForm() {
   const dispatch = useDispatch();
 
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [hashtags, setHashtags] = useState<string[]>([]);
+
+  const handleHashtagsChange = (updatedHashtags: string[]) => {
+    setHashtags(updatedHashtags);
+  };
   const suggestForm = useForm<z.infer<typeof suggestFormSchema>>({
     resolver: zodResolver(suggestFormSchema),
 
     defaultValues: {
+      topic: '',
       title: '',
       description: '',
+      hastags: [],
     },
   });
 
@@ -86,6 +99,25 @@ export function CreatePostForm() {
       >
         <FormField
           control={suggestForm.control}
+          name="topic"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-xl">Топик поста</FormLabel>
+              <FormControl>
+                <Input
+                  disabled={isLoading}
+                  className=" bg-transparent"
+                  placeholder="Придумайте топик для поста: технологии, природа, медицина"
+                  {...field}
+                />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={suggestForm.control}
           name="title"
           render={({ field }) => (
             <FormItem>
@@ -93,7 +125,7 @@ export function CreatePostForm() {
               <FormControl>
                 <Input
                   disabled={isLoading}
-                  className=""
+                  className=" bg-transparent"
                   placeholder="Название поста"
                   {...field}
                 />
@@ -112,12 +144,26 @@ export function CreatePostForm() {
               <FormControl>
                 <Textarea
                   disabled={isLoading}
-                  className="min-h-[400px] resize-none"
+                  className="min-h-[400px] resize-none  bg-transparent"
                   placeholder="Описание вашего поста"
                   {...field}
                 />
               </FormControl>
 
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={suggestForm.control}
+          name="hastags"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-xl">Хэштеги</FormLabel>
+              <FormControl>
+                <HashtagInput onUpdate={(hashtags) => handleHashtagsChange(hashtags)} />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
