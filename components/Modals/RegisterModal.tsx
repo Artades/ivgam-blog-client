@@ -33,22 +33,27 @@ import {
   closeRegisterModal,
   openRegisterModal,
 } from '@/store/slices/authModalsSlice';
-import { setAccessToken } from '@/helpers/cookies';
 import { showErrorToast } from '../Error/showErrorToast';
 import * as Actions from '@/actions';
+
 const registerFormSchema = z.object({
-  first_name: z.string().min(3, {
+  first_name: z.string().min(1, {
     message: 'Имя невалидно',
   }),
   last_name: z.string().min(1, {
     message: 'Фамилия  невалидна',
   }),
-  email: z.string().min(4, {
+  email: z.string().email({
     message: 'Email должен быть валидным',
   }),
-  password: z.string().min(2, {
-    message: 'Пароль должен содержать как минимум 2 символа.',
-  }),
+  password: z
+    .string()
+    .min(4, {
+      message: 'Пароль должен содержать как минимум 4 символа.',
+    })
+    .regex(/(?=.*[A-Z])(?=.*\d).{4,}/, {
+      message: 'Пароль должен содержать хотя бы одну заглавную букву и одну цифру.',
+    }),
 });
 
 export function RegisterModal() {
@@ -85,14 +90,14 @@ export function RegisterModal() {
       const response = await Api.auth.register(updatedCredentials);
       const token = response.accessToken;
       const email = response.userEmailFromToken;
-
+      const token_response = await Actions.token.saveToken(token);
       localStorage.setItem('userEmail', email);
+
       // const action_response = await Actions.roles.getRole(token);
       // console.log(action_response);
-
+      router.push('/posts');
       dispatch(closeRegisterModal());
       registerForm.reset();
-      router.push('/posts');
     } catch (error: any) {
       if (error.response) {
         if (error.response.status === 400) {

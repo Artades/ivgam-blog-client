@@ -31,17 +31,15 @@ import {
   FormItem,
   FormMessage,
 } from '../ui/form';
-// import Link from 'next/link';
-// import { setAccessToken } from '@/helpers/cookies';
 import { showErrorToast } from '../Error/showErrorToast';
 import * as Actions from '@/actions';
 
 const loginFormSchema = z.object({
-  email: z.string().min(4, {
+  email: z.string().email({
     message: 'Email должен быть валидным',
   }),
   password: z.string().min(2, {
-    message: 'Пароль должен содержать как минимум 2 символа.',
+    message: 'Введите валидный пароль.',
   }),
 });
 
