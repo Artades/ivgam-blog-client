@@ -1,40 +1,37 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 import { checkRole } from '@/helpers/checkRole';
+import { useRouter } from 'next/navigation';
 
-const useRole = (
-  desiredRole: string,
-  cancelDestination?: string,
-): boolean | null => {
-  const [response, setResponse] = useState<boolean | null>(null);
+const useRole = (desiredRole: string, cancelDestination?: string) => {
   const router = useRouter();
 
-  useEffect(() => {
-    const handleCheckRole = async () => {
-      try {
-        const roleStatus = await checkRole(desiredRole);
-        console.log('Role result:', roleStatus);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['checkRole', desiredRole],
+    queryFn: async () => await checkRole(desiredRole),
 
-        if ('props' in roleStatus) {
-          setResponse(true);
-        } else if ('redirect' in roleStatus) {
-          setResponse(false);
-          if (cancelDestination) {
-            router.push(cancelDestination);
-          }
-        }
-      } catch (error) {
-        console.error('Role error:', error);
-        setResponse(false);
-        router.push('/');
+    // @ts-ignore
+    onError: () => {
+      if (cancelDestination) {
+        router.push(cancelDestination);
+      } else {
+        console.error('No access.Without redirect');
       }
-    };
+    },
+  });
 
-    handleCheckRole();
-  }, [desiredRole, router]);
+  if (isLoading) return 'Загрузка...'; // Или показывайте индикатор загрузки
 
-  return response;
+  if (error || !data?.props?.access) {
+    if (cancelDestination) {
+      router.push(cancelDestination);
+    } else {
+      console.error('Access Error');
+    }
+
+    return false;
+  }
+
+  return true;
 };
 
 export default useRole;

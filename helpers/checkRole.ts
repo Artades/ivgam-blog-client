@@ -1,4 +1,5 @@
 "use server"
+
 import { checkAcess } from '@/actions/roles';
 import {  getAccessToken, getRole } from './cookies';
 
@@ -27,6 +28,7 @@ export const checkRole = async (
   if (access.access) {
     return {
       props: {
+        
         access: true,
       },
     };

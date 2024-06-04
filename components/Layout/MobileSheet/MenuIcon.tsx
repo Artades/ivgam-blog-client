@@ -10,4 +10,7 @@ const MenuIcon = forwardRef<
   </span>
 ));
 
+
+MenuIcon.displayName = 'MenuIcon';
+
 export default MenuIcon;

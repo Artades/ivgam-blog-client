@@ -1,3 +1,5 @@
+"use server";
+
 export const checkAcess = async (
   token: { accessToken: any },
   roleToCheck: string,

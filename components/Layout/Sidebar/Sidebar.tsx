@@ -1,4 +1,4 @@
-"use client"
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SidebarItem from './SidebarItem';
 import SidebarLogo from './SidebarLogo';
@@ -10,15 +10,20 @@ import {
 } from '@/store/slices/authModalsSlice';
 import { RootState } from '@/store';
 import LogoutButton from './LogoutButton';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import useRole from '@/hooks/useRole';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-
+  const pathname = usePathname();
   const { authStatus } = useSelector((state: RootState) => state.authStatus);
+
   const isAuthor = useRole('author');
+
+  if (isAuthor === null) {
+    return <div>Загрузка...</div>; // Показывайте индикатор загрузки
+  }
 
   return (
     <div className="hidden lg:block md:col-span-1 h-full w-full  lg:pr-6 py-7">
