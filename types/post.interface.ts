@@ -10,3 +10,11 @@ export interface PostItemProps {
   likesAmount: number;
   imageUrl: string;
 }
+
+export type CreatePostDTO = {
+  title: string;
+  topic: string;
+  body: string;
+  hashtags: string;
+  image?: any;
+}

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Input } from '@/components/ui/input';
 import { IoClose } from 'react-icons/io5';
 
@@ -15,21 +14,27 @@ const HashtagInput: React.FC<HashtagInputProps> = ({
   const [hashtag, setHashtag] = useState('');
   const [hashtags, setHashtags] = useState<string[]>(initialHashtags);
 
-  useEffect(() => {
+  const updateHashtags = useCallback(() => {
     onUpdate(hashtags);
   }, [hashtags, onUpdate]);
 
+  useEffect(() => {
+    updateHashtags();
+  }, [hashtags, updateHashtags]);
+
   const handleAddHashtag = () => {
     if (hashtag.trim() !== '') {
-      setHashtags([...hashtags, hashtag]);
+      setHashtags((prevHashtags) => [...prevHashtags, hashtag]);
       setHashtag('');
     }
   };
 
   const handleRemoveHashtag = (index: number) => {
-    const updatedHashtags = [...hashtags];
-    updatedHashtags.splice(index, 1);
-    setHashtags(updatedHashtags);
+    setHashtags((prevHashtags) => {
+      const updatedHashtags = [...prevHashtags];
+      updatedHashtags.splice(index, 1);
+      return updatedHashtags;
+    });
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +72,6 @@ const HashtagInput: React.FC<HashtagInputProps> = ({
         placeholder="Введите хэштег"
         className="w-full py-2"
       />
-      {/* <Button onClick={handleSaveHashtags}>Сохранить хэштеги</Button> */}
     </div>
   );
 };

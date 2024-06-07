@@ -1,13 +1,12 @@
 'use client';
 import * as Api from '@/api';
 import { Button } from '@/components/ui/button';
-
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ClipLoader } from 'react-spinners';
 import * as z from 'zod';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -23,6 +22,7 @@ import { Textarea } from '../ui/textarea';
 import { openSuccessModal } from '@/store/slices/successModalSlice';
 import HashtagInput from './FormUI/HashtagInput';
 import ImageInput from './FormUI/ImageInput';
+import { CreatePostDTO } from '@/types/post.interface';
 
 const suggestFormSchema = z.object({
   topic: z.string().min(4, {
@@ -31,49 +31,59 @@ const suggestFormSchema = z.object({
   title: z.string().min(4, {
     message: 'Укажите заголовок вашей идеи.Минимум 4 символа',
   }),
-  description: z.string().min(20, {
+  body: z.string().min(20, {
     message: 'Подробно опишите вашу идею.Минимум 20 символов',
   }),
-  hastags: z.any(),
-  image: z.any(),
+  hashtags: z.array(z.string()).optional(),
+  image: z.any().optional(),
 });
 
 export function CreatePostForm() {
-  const dispatch = useDispatch();
-
   const [isLoading, setLoading] = useState<boolean>(false);
   const [hashtags, setHashtags] = useState<string[]>([]);
 
- const handleHashtagsChange = (updatedHashtags: string[]) => {
-   setHashtags(updatedHashtags);
-   suggestForm.setValue('hastags', updatedHashtags); // Sync with form state
- };
   const suggestForm = useForm<z.infer<typeof suggestFormSchema>>({
     resolver: zodResolver(suggestFormSchema),
-
     defaultValues: {
       topic: '',
       title: '',
-      description: '',
-      hastags: hashtags,
+      body: '',
+      hashtags: [],
     },
   });
+
+  useEffect(() => {
+    suggestForm.setValue('hashtags', hashtags);
+  }, [hashtags, suggestForm]);
+
+  const handleHashtagsChange = (updatedHashtags: string[]) => {
+    setHashtags(updatedHashtags);
+  };
+  const handleImageChange = (file: File) => {
+    suggestForm.setValue('image', file);
+  };
 
   const handleCreatePost = async (
     credentials: z.infer<typeof suggestFormSchema>,
   ) => {
     try {
       setLoading(true);
-      
-    
-      console.log("Credentials: ", credentials);
 
-      // await Api.posts.suggest(updatedCredentials);
+      const hashtagsString: string | undefined =
+        credentials.hashtags?.join(',');
 
-     
+      const updatedCredentials = {
+        ...credentials,
+        hashtags: hashtagsString ?? '',
+      };
 
+      const response = await Api.posts.createPost(updatedCredentials);
+      console.log(response)
+      // Reset the form
       // suggestForm.reset();
+      setHashtags([]);
     } catch (error: any) {
+      console.log(error)
       showErrorToast('Что-то пошло не так при создании поста');
     } finally {
       setLoading(false);
@@ -93,7 +103,7 @@ export function CreatePostForm() {
             <FormItem>
               <FormLabel className="text-xl">Изображение</FormLabel>
               <FormControl>
-                <ImageInput onChange={field.onChange} />
+                <ImageInput onImageChange={handleImageChange} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -139,7 +149,7 @@ export function CreatePostForm() {
         />
         <FormField
           control={suggestForm.control}
-          name="description"
+          name="body"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-xl">Описание</FormLabel>
@@ -159,13 +169,14 @@ export function CreatePostForm() {
 
         <FormField
           control={suggestForm.control}
-          name="hastags"
+          name="hashtags"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-xl">Хэштеги</FormLabel>
               <FormControl>
                 <HashtagInput
-                  onUpdate={(hashtags) => handleHashtagsChange(hashtags)}
+                  initialHashtags={hashtags}
+                  onUpdate={handleHashtagsChange}
                 />
               </FormControl>
               <FormMessage />

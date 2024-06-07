@@ -1,5 +1,5 @@
 import axios from '@/http/axios';
-import { PostItemProps } from '@/types/post.interface';
+import { CreatePostDTO, PostItemProps } from '@/types/post.interface';
 import { SuggestDTO } from '@/types/suggest.interface';
 
 export const suggest = async (
@@ -29,4 +29,23 @@ export const unlikePost = async (
 
 export const getPostById = async (postId: number): Promise<PostItemProps> => {
   return (await axios.get(`/posts/${postId}`)).data;
+};
+
+export const createPost = async (
+  credentials: CreatePostDTO,
+): Promise<{ success: boolean }> => {
+  const formData = new FormData();
+  formData.append('image', credentials.image);
+  formData.append('topic', credentials.topic);
+  formData.append('title', credentials.title);
+  formData.append('body', credentials.body);
+  formData.append('hashtags', credentials.hashtags);
+
+  const config = {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  };
+
+  console.log('FORM DATA FROM AXIOS: ');
+
+  return (await axios.post(`/posts/createPost`, formData, config)).data;
 };

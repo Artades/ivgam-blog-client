@@ -3,10 +3,10 @@ import { Button } from '@/components/ui/button';
 import { BsImage, BsTrash } from 'react-icons/bs';
 
 interface ImageInputProps {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onImageChange: (file: File) => void;
 }
 
-const ImageInput: React.FC<ImageInputProps> = ({ onChange }) => {
+const ImageInput: React.FC<ImageInputProps> = ({ onImageChange }) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const hiddenFileInput = useRef<HTMLInputElement>(null);
 
@@ -22,10 +22,11 @@ const ImageInput: React.FC<ImageInputProps> = ({ onChange }) => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageSrc(reader.result as string);
+        // Вызов функции onImageChange для передачи выбранного файла
+        onImageChange(file);
       };
       reader.readAsDataURL(file);
     }
-    onChange(event);
   };
 
   const handleClear = () => {
@@ -82,5 +83,6 @@ const ImageInput: React.FC<ImageInputProps> = ({ onChange }) => {
     </div>
   );
 };
+
 
 export default ImageInput;
