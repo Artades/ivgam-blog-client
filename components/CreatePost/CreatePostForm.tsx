@@ -22,6 +22,7 @@ import { showErrorToast } from '../Error/showErrorToast';
 import { Textarea } from '../ui/textarea';
 import { openSuccessModal } from '@/store/slices/successModalSlice';
 import HashtagInput from './FormUI/HashtagInput';
+import ImageInput from './FormUI/ImageInput';
 
 const suggestFormSchema = z.object({
   topic: z.string().min(4, {
@@ -43,9 +44,10 @@ export function CreatePostForm() {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [hashtags, setHashtags] = useState<string[]>([]);
 
-  const handleHashtagsChange = (updatedHashtags: string[]) => {
-    setHashtags(updatedHashtags);
-  };
+ const handleHashtagsChange = (updatedHashtags: string[]) => {
+   setHashtags(updatedHashtags);
+   suggestForm.setValue('hastags', updatedHashtags); // Sync with form state
+ };
   const suggestForm = useForm<z.infer<typeof suggestFormSchema>>({
     resolver: zodResolver(suggestFormSchema),
 
@@ -53,39 +55,26 @@ export function CreatePostForm() {
       topic: '',
       title: '',
       description: '',
-      hastags: [],
+      hastags: hashtags,
     },
   });
 
-  const handleSuggest = async (
+  const handleCreatePost = async (
     credentials: z.infer<typeof suggestFormSchema>,
   ) => {
     try {
       setLoading(true);
-      let userEmailFromLocalStorage: string | null = '';
-      if (typeof window !== 'undefined')
-        userEmailFromLocalStorage = localStorage.getItem('userEmail');
+      
+    
+      console.log("Credentials: ", credentials);
 
-      const updatedCredentials = {
-        ...credentials,
-        userEmail: userEmailFromLocalStorage as string,
-      };
+      // await Api.posts.suggest(updatedCredentials);
 
-      await Api.posts.suggest(updatedCredentials);
+     
 
-      const suggestions: string | null = localStorage.getItem('suggestions');
-      let suggestionArray: string[] | undefined = suggestions?.split(',');
-      if (suggestions && suggestionArray && suggestionArray.length) {
-        suggestionArray.push(credentials.title);
-        localStorage.setItem('suggestions', suggestionArray.join(','));
-      } else {
-        localStorage.setItem('suggestions', credentials.title);
-      }
-
-      dispatch(openSuccessModal());
-      suggestForm.reset();
+      // suggestForm.reset();
     } catch (error: any) {
-      showErrorToast('Что-то пошло не так при создании заявки');
+      showErrorToast('Что-то пошло не так при создании поста');
     } finally {
       setLoading(false);
     }
@@ -94,9 +83,22 @@ export function CreatePostForm() {
   return (
     <Form {...suggestForm}>
       <form
-        onSubmit={suggestForm.handleSubmit(handleSuggest)}
+        onSubmit={suggestForm.handleSubmit(handleCreatePost)}
         className="space-y-4 py-10 px-5 "
       >
+        <FormField
+          control={suggestForm.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-xl">Изображение</FormLabel>
+              <FormControl>
+                <ImageInput onChange={field.onChange} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={suggestForm.control}
           name="topic"
@@ -162,7 +164,9 @@ export function CreatePostForm() {
             <FormItem>
               <FormLabel className="text-xl">Хэштеги</FormLabel>
               <FormControl>
-                <HashtagInput onUpdate={(hashtags) => handleHashtagsChange(hashtags)} />
+                <HashtagInput
+                  onUpdate={(hashtags) => handleHashtagsChange(hashtags)}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
