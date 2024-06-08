@@ -23,8 +23,9 @@ import { openSuccessModal } from '@/store/slices/successModalSlice';
 import HashtagInput from './FormUI/HashtagInput';
 import ImageInput from './FormUI/ImageInput';
 import { CreatePostDTO } from '@/types/post.interface';
+import { useRouter } from 'next/navigation';
 
-const suggestFormSchema = z.object({
+const createFormSchema = z.object({
   topic: z.string().min(4, {
     message: 'Укажите топик поста.Минимум 4 символа',
   }),
@@ -39,11 +40,12 @@ const suggestFormSchema = z.object({
 });
 
 export function CreatePostForm() {
+  const router = useRouter();
   const [isLoading, setLoading] = useState<boolean>(false);
   const [hashtags, setHashtags] = useState<string[]>([]);
 
-  const suggestForm = useForm<z.infer<typeof suggestFormSchema>>({
-    resolver: zodResolver(suggestFormSchema),
+  const createForm = useForm<z.infer<typeof createFormSchema>>({
+    resolver: zodResolver(createFormSchema),
     defaultValues: {
       topic: '',
       title: '',
@@ -53,18 +55,18 @@ export function CreatePostForm() {
   });
 
   useEffect(() => {
-    suggestForm.setValue('hashtags', hashtags);
-  }, [hashtags, suggestForm]);
+    createForm.setValue('hashtags', hashtags);
+  }, [hashtags, createForm]);
 
   const handleHashtagsChange = (updatedHashtags: string[]) => {
     setHashtags(updatedHashtags);
   };
   const handleImageChange = (file: File) => {
-    suggestForm.setValue('image', file);
+    createForm.setValue('image', file);
   };
 
   const handleCreatePost = async (
-    credentials: z.infer<typeof suggestFormSchema>,
+    credentials: z.infer<typeof createFormSchema>,
   ) => {
     try {
       setLoading(true);
@@ -80,8 +82,11 @@ export function CreatePostForm() {
       const response = await Api.posts.createPost(updatedCredentials);
       console.log(response)
       // Reset the form
-      // suggestForm.reset();
+      createForm.reset();
       setHashtags([]);
+
+      router.push("/posts")
+      
     } catch (error: any) {
       console.log(error)
       showErrorToast('Что-то пошло не так при создании поста');
@@ -91,13 +96,14 @@ export function CreatePostForm() {
   };
 
   return (
-    <Form {...suggestForm}>
+    <Form {...createForm}>
       <form
-        onSubmit={suggestForm.handleSubmit(handleCreatePost)}
+        onSubmit={createForm.handleSubmit(handleCreatePost)}
         className="space-y-4 py-10 px-5 "
       >
         <FormField
-          control={suggestForm.control}
+          control={createForm.control}
+          disabled={isLoading}
           name="image"
           render={({ field }) => (
             <FormItem>
@@ -110,7 +116,8 @@ export function CreatePostForm() {
           )}
         />
         <FormField
-          control={suggestForm.control}
+          control={createForm.control}
+          disabled={isLoading}
           name="topic"
           render={({ field }) => (
             <FormItem>
@@ -129,7 +136,8 @@ export function CreatePostForm() {
           )}
         />
         <FormField
-          control={suggestForm.control}
+          control={createForm.control}
+          disabled={isLoading}
           name="title"
           render={({ field }) => (
             <FormItem>
@@ -148,7 +156,8 @@ export function CreatePostForm() {
           )}
         />
         <FormField
-          control={suggestForm.control}
+          disabled={isLoading}
+          control={createForm.control}
           name="body"
           render={({ field }) => (
             <FormItem>
@@ -168,7 +177,8 @@ export function CreatePostForm() {
         />
 
         <FormField
-          control={suggestForm.control}
+          disabled={isLoading}
+          control={createForm.control}
           name="hashtags"
           render={({ field }) => (
             <FormItem>
@@ -200,7 +210,7 @@ export function CreatePostForm() {
                 <ClipLoader size={20} color="#fff" />
               </div>
             ) : (
-              'Отправить'
+              'Создать'
             )}
           </Button>
         </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Input } from '@/components/ui/input';
 import { IoClose } from 'react-icons/io5';
+import { Button } from '@/components/ui/button';
 
 interface HashtagInputProps {
   initialHashtags?: string[];
@@ -64,14 +65,25 @@ const HashtagInput: React.FC<HashtagInputProps> = ({
           </div>
         ))}
       </div>
-      <Input
-        type="text"
-        value={hashtag}
-        onChange={handleInputChange}
-        onKeyDown={handleInputKeyDown}
-        placeholder="Введите хэштег"
-        className="w-full py-2"
-      />
+      <div className="flex items-center space-x-3 w-full ">
+        <Input
+          type="text"
+          value={hashtag}
+          onChange={handleInputChange}
+          onKeyDown={handleInputKeyDown}
+          placeholder="Введите хэштег"
+          className="py-2 sm:w-full w-3/4"
+        />
+        <Button
+          onClick={(e: any) => {
+            e.preventDefault();
+            handleAddHashtag();
+          }}
+          className="sm:hidden block w-1/4 px-2"
+        >
+          Добавить
+        </Button>
+      </div>
     </div>
   );
 };
