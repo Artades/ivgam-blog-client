@@ -10,8 +10,8 @@ import useAuthentication from '@/hooks/useAuth';
 
 const CreatePost = () => {
   const router = useRouter();
-  useAuthentication('/create'); // Вызов всегда должен быть на одном уровне
-  //
+  // useAuthentication('/create'); // Вызов всегда должен быть на одном уровне
+  // //
   const isAuthor = useRole('author', '/suggest');
 
   useEffect(() => {
