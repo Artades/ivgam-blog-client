@@ -80,7 +80,7 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
           <div className="w-full flex flex-col space-y-10 items-start">
             <article className="w-full flex items-center justify-between">
               <div className="flex space-x-2">
-                <ReadButton />
+                <ReadButton id={post.id.toString()} />
                 <ShareButton />
               </div>
 
