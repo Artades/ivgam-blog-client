@@ -26,7 +26,7 @@ const PostImage: FC<PostImageProps> = ({ id, src }) => {
       height={400}
       alt={`Image for post #${id}`}
       quality={100}
-      className="object-cover rounded-t-lg w-full h-full"
+      className="object-cover object-center  rounded-lg w-full h-full "
     />
   );
 };

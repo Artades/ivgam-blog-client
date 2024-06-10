@@ -12,6 +12,8 @@ import * as Api from '@/api';
 import CustomError from '@/components/Error/CustomError';
 import SkeletonPost from '@/components/Skeletons/SkeletonPost';
 import { UserProps } from '@/types/user.interface';
+import ShareButton from '../PostAction/ShareButton';
+import Date from '../PostAction/Date';
 
 interface PostCardProps {
   postId: number;
@@ -58,15 +60,16 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
 // console.log("Data: ", post)
   return (
     <Card
-      className={`w-full   rounded-lg border border-zinc-700 ${postId % 2 === 0 ? 'sm:row-span-3'  : 'sm:row-span-2'}`}
+      className={`w-full   rounded-lg border border-zinc-700  h-[500px] bg-black`}
       style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
     >
-      <div className="w-full h-full grid grid-cols-1 grid-rows-6 ">
-        <div className="row-span-2">
+      <div className="w-full h-full grid grid-cols-1 grid-rows-6 relative">
+        <div className="row-span-4 relative ">
           <PostImage id={post.id} src={post.imageUrl} />
+          <div className="transition-all duration-700 absolute inset-0 bg-gradient-to-t from-black pointer-events-none "></div>
         </div>
         <div
-          className={`w-full row-span-4 flex flex-col justify-between space-y-5 items-start p-5`}
+          className={`w-full absolute bottom-0 flex flex-col justify-between space-y-5 items-start pb-5 px-5`}
         >
           <div className="flex flex-col items-start gap-3">
             <h3 className="text-2xl font-bold">{post.title}</h3>
@@ -74,9 +77,12 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
               {shortenBody(post.body, 50)}
             </p>
           </div>
-          <div className="w-full flex flex-col space-y-7 items-start">
+          <div className="w-full flex flex-col space-y-10 items-start">
             <article className="w-full flex items-center justify-between">
-              <ReadButton />
+              <div className="flex space-x-2">
+                <ReadButton />
+                <ShareButton />
+              </div>
 
               <FavoriteButton
                 isLiked={isLiked}
@@ -85,8 +91,11 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
                 userId={user.id}
               />
             </article>
-            <article className="flex items-center">
+            <article className="flex justify-between items-center w-full">
               <ViewState />
+              
+                <Date timestamp={post.dateOfCreation} />
+             
             </article>
           </div>
         </div>

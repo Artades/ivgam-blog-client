@@ -6,7 +6,7 @@ const ReadButton = () => {
     return (
         <Button className='flex items-center justify-center gap-x-3'>
             <p className='text-md font-semibold'>Читать</p>
-            <IoOpenOutline className='size-5 font-bold' />
+            {/* <IoOpenOutline className='size-5 font-bold' /> */}
         </Button>
     );
 };
