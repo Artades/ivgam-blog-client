@@ -1,0 +1,27 @@
+.mdEditor {
+  min-height: 400px;
+  resize: none;
+  background-color: black;
+  color: white; /* Замените на нужный цвет текста */
+  border: 1px solid #ccc; /* Замените на нужный цвет границы */
+}
+
+/* Пример дополнительных стилей */
+.mdEditor .rc-md-editor {
+  background-color: black !important;
+  color: white !important;
+}
+
+.mdEditor .rc-md-navigation {
+  background-color: #1a1a1a !important; /* Цвет фона панели инструментов */
+}
+
+.mdEditor .rc-md-editor-wrapper {
+  background-color: #2a2a2a !important; /* Цвет фона редактора */
+  color: #fff !important; /* Цвет текста редактора */
+}
+
+.mdEditor .rc-md-editor-wrapper .section {
+  background-color: #2a2a2a !important;
+  color: #fff !important;
+}

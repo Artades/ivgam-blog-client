@@ -24,6 +24,7 @@ import HashtagInput from './FormUI/HashtagInput';
 import ImageInput from './FormUI/ImageInput';
 import { CreatePostDTO } from '@/types/post.interface';
 import { useRouter } from 'next/navigation';
+import MdEditorCustom from './MDEditor/MdEditorCustom';
 
 const createFormSchema = z.object({
   topic: z.string().min(4, {
@@ -80,15 +81,14 @@ export function CreatePostForm() {
       };
 
       const response = await Api.posts.createPost(updatedCredentials);
-      console.log(response)
+      console.log(response);
       // Reset the form
       createForm.reset();
       setHashtags([]);
 
-      router.push("/posts")
-      
+      router.push('/posts');
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       showErrorToast('Что-то пошло не так при создании поста');
     } finally {
       setLoading(false);
@@ -163,12 +163,7 @@ export function CreatePostForm() {
             <FormItem>
               <FormLabel className="text-xl">Описание</FormLabel>
               <FormControl>
-                <Textarea
-                  disabled={isLoading}
-                  className="min-h-[400px] resize-none  bg-transparent"
-                  placeholder="Описание вашего поста"
-                  {...field}
-                />
+                <MdEditorCustom field={field} />
               </FormControl>
 
               <FormMessage />
