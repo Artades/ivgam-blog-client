@@ -1,10 +1,7 @@
-import React from 'react';
-import MarkdownIt from 'markdown-it';
-import MdEditor, { Plugins } from 'react-markdown-editor-lite';
-import 'react-markdown-editor-lite/lib/index.css';
-import styles from './MDEditor.module.css';
-
-MdEditor.use(Plugins.FontItalic);
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import SimpleMdeReact from 'react-simplemde-editor';
+import 'easymde/dist/easymde.min.css';
+import { Editor, Position } from 'codemirror';
 
 interface MdEditorCustomProps {
   field: {
@@ -14,14 +11,60 @@ interface MdEditorCustomProps {
 }
 
 const MdEditorCustom: React.FC<MdEditorCustomProps> = ({ field }) => {
-  const mdParser = new MarkdownIt();
+  const autofocusNoSpellcheckerOptions = useMemo(() => {
+    return {
+      autofocus: true,
+      spellChecker: false,
+    } as EasyMDE.Options;
+  }, []);
+
+  // easyMDE instance
+  const [simpleMdeInstance, setMdeInstance] = useState<EasyMDE | null>(null);
+
+  const getMdeInstanceCallback = useCallback((simpleMde: EasyMDE) => {
+    setMdeInstance(simpleMde);
+  }, []);
+
+  useEffect(() => {
+    if (simpleMdeInstance) {
+      console.info("Hey I'm editor instance!", simpleMdeInstance);
+    }
+  }, [simpleMdeInstance]);
+
+  // codemirror instance
+  const [codemirrorInstance, setCodemirrorInstance] = useState<Editor | null>(
+    null,
+  );
+  const getCmInstanceCallback = useCallback((editor: Editor) => {
+    setCodemirrorInstance(editor);
+  }, []);
+
+  useEffect(() => {
+    if (codemirrorInstance) {
+      console.info("Hey I'm codemirror instance!", codemirrorInstance);
+    }
+  }, [codemirrorInstance]);
+
+  // line and cursor
+  const [lineAndCursor, setLineAndCursor] = useState<Position | null>(null);
+
+  const getLineAndCursorCallback = useCallback((position: Position) => {
+    setLineAndCursor(position);
+  }, []);
+
+  useEffect(() => {
+    if (lineAndCursor) {
+      console.info("Hey I'm line and cursor info!", lineAndCursor);
+    }
+  }, [lineAndCursor]);
 
   return (
-    <MdEditor
-      className={styles.mdEditor}
+    <SimpleMdeReact
       value={field.value}
-      renderHTML={(text) => mdParser.render(text)}
-      onChange={({ text }) => field.onChange(text)}
+      onChange={field.onChange}
+      options={autofocusNoSpellcheckerOptions}
+      getMdeInstance={getMdeInstanceCallback}
+      getCodemirrorInstance={getCmInstanceCallback}
     />
   );
 };

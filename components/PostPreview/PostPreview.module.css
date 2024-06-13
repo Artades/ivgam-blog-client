@@ -1,0 +1,32 @@
+/* PostPreview.module.css */
+.markdownBody {
+  /* Добавьте необходимые стили для отображения Markdown */
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ffffff; /* Цвет текста */
+}
+
+.markdownBody h1,
+.markdownBody h2,
+.markdownBody h3,
+.markdownBody h4,
+.markdownBody h5,
+.markdownBody h6 {
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdownBody p {
+  margin-bottom: 1rem;
+}
+
+.markdownBody a {
+  color: #1e90ff; /* Цвет ссылок */
+  text-decoration: underline;
+}
+
+.markdownBody img {
+  max-width: 100%;
+  height: auto;
+}
