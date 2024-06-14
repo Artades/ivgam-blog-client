@@ -1,11 +1,10 @@
 'use client';
+
 import * as Api from '@/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { ClipLoader } from 'react-spinners';
 import * as z from 'zod';
-import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,14 +17,14 @@ import {
   FormMessage,
 } from '../ui/form';
 import { showErrorToast } from '../Error/showErrorToast';
-import { Textarea } from '../ui/textarea';
-import { openSuccessModal } from '@/store/slices/successModalSlice';
 import HashtagInput from './FormUI/HashtagInput';
 import ImageInput from './FormUI/ImageInput';
-import { CreatePostDTO } from '@/types/post.interface';
 import { useRouter } from 'next/navigation';
-import MdEditorCustom from './MDEditor/MdEditorCustom';
+import dynamic from 'next/dynamic';
 
+const MdEditorCustom = dynamic(() => import('./MDEditor/MdEditorCustom'), {
+  ssr: false,
+});
 const createFormSchema = z.object({
   topic: z.string().min(4, {
     message: 'Укажите топик поста.Минимум 4 символа',

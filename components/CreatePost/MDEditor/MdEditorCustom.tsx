@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import SimpleMdeReact from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
@@ -25,12 +27,6 @@ const MdEditorCustom: React.FC<MdEditorCustomProps> = ({ field }) => {
     setMdeInstance(simpleMde);
   }, []);
 
-  useEffect(() => {
-    if (simpleMdeInstance) {
-      console.info("Hey I'm editor instance!", simpleMdeInstance);
-    }
-  }, [simpleMdeInstance]);
-
   // codemirror instance
   const [codemirrorInstance, setCodemirrorInstance] = useState<Editor | null>(
     null,
@@ -39,24 +35,9 @@ const MdEditorCustom: React.FC<MdEditorCustomProps> = ({ field }) => {
     setCodemirrorInstance(editor);
   }, []);
 
-  useEffect(() => {
-    if (codemirrorInstance) {
-      console.info("Hey I'm codemirror instance!", codemirrorInstance);
-    }
-  }, [codemirrorInstance]);
-
-  // line and cursor
-  const [lineAndCursor, setLineAndCursor] = useState<Position | null>(null);
-
-  const getLineAndCursorCallback = useCallback((position: Position) => {
-    setLineAndCursor(position);
-  }, []);
-
-  useEffect(() => {
-    if (lineAndCursor) {
-      console.info("Hey I'm line and cursor info!", lineAndCursor);
-    }
-  }, [lineAndCursor]);
+  if (typeof window === 'undefined') {
+    return null; // or a placeholder
+  }
 
   return (
     <SimpleMdeReact
