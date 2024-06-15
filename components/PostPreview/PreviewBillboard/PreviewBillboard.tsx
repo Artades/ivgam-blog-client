@@ -5,12 +5,16 @@ import { PostItemProps } from '@/types/post.interface';
 import { Button } from '../../ui/button';
 import { FiEdit2 } from 'react-icons/fi';
 import Date from '../../Posts/PostAction/Date';
+import Hashtags from "@/components/Hashtags/Hashtags";
 
 interface PreviewBillboardProps {
     title: string;
     imageUrl:string;
+    date: string;
+    hashtags: string;
 }
-const PreviewBillboard:FC<PreviewBillboardProps> = ({title, imageUrl}) => {
+const PreviewBillboard:FC<PreviewBillboardProps> = ({title, imageUrl, date, hashtags}) => {
+  const hashtagsArr = hashtags.split(",");
     return (
       <div className="max-w-full relative top-0 left-0 right-0 overflow-hidden border-b border-b-zinc-700">
         <Image
@@ -23,7 +27,7 @@ const PreviewBillboard:FC<PreviewBillboardProps> = ({title, imageUrl}) => {
           className="w-full h-[25rem] object-cover brightness-50"
         />
         <div className="w-full  absolute left-5 bottom-10 flex flex-col items-start gap-y-5">
-          <h1 className="sm:text-4xl text-3xl max-w-full font-extrabold sm:max-w-[600px]  ">
+          <h1 className="sm:text-4xl text-3xl  max-w-[80%] font-extrabold sm:max-w-[600px]  ">
             {title}
           </h1>
 
@@ -37,6 +41,10 @@ const PreviewBillboard:FC<PreviewBillboardProps> = ({title, imageUrl}) => {
               <FaRegComment className="fill-zinc-800 size-4" />
             </Button>
           </div>
+
+          <Date timestamp={date} />
+
+        <Hashtags hashtags={hashtagsArr} flexDir="flex-row"/>
         </div>
       </div>
     );

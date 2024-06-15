@@ -25,7 +25,7 @@ const PostPreview: React.FC<PostPreviewProps> = ({ post }) => {
     <>
       <Helmet pageTitle="Пост" breadCrumbs={createBreadcrumbs} />
       <div className="w-full min-h-screen">
-        <PreviewBillboard title={post.title} imageUrl={post.imageUrl} />
+        <PreviewBillboard title={post.title} imageUrl={post.imageUrl} date={post.dateOfCreation} hashtags={post.hashtags} />
         <div className="sm:px-5 py-5 px-3">
           <Wrapper>
            
