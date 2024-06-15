@@ -40,6 +40,7 @@ export const createPost = async (
   formData.append('title', credentials.title);
   formData.append('body', credentials.body);
   formData.append('hashtags', credentials.hashtags);
+  formData.append('creator', credentials.creator);
 
   const config = {
     headers: { 'Content-Type': 'multipart/form-data' },

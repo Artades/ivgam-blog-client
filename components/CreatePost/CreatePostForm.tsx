@@ -35,6 +35,9 @@ const createFormSchema = z.object({
   body: z.string().min(20, {
     message: 'Подробно опишите вашу идею.Минимум 20 символов',
   }),
+  creator: z.string().email({
+    message: "Укажите валидного пользователя, а именного email"
+  }),
   hashtags: z.array(z.string()).optional(),
   image: z.any().optional(),
 });
@@ -181,6 +184,26 @@ export function CreatePostForm() {
                 <HashtagInput
                   initialHashtags={hashtags}
                   onUpdate={handleHashtagsChange}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          disabled={isLoading}
+          control={createForm.control}
+          name="creator"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-xl">Создатель поста</FormLabel>
+              <FormControl>
+                <Input
+                  disabled={isLoading}
+                  className=" bg-transparent"
+                  placeholder="Создатель поста"
+                  {...field}
                 />
               </FormControl>
               <FormMessage />

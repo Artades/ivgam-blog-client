@@ -9,6 +9,7 @@ export interface PostItemProps {
   views: number;
   likesAmount: number;
   imageUrl: string;
+  creator: string;
 }
 
 export type CreatePostDTO = {
@@ -17,4 +18,5 @@ export type CreatePostDTO = {
   body: string;
   hashtags: string;
   image?: any;
+  creator: string;
 }
