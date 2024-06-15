@@ -6,3 +6,8 @@ export const getUserByEmail = async (
 ): Promise<UserProps> => {
   return (await axios.get(`/users/findOneByEmail/${userEmail}`)).data;
 };
+
+
+export const updateProfilePicture = async (id: number, profilePicture: string):Promise<{success: boolean}> => {
+    return (await axios.patch(`/users/profilePicture/`, {id, profilePicture})).data
+}

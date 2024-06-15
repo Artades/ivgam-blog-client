@@ -4,4 +4,5 @@ export interface UserProps {
   email: string;
   role: string;
   favorites: any;
+  profilePicture: string
 }

@@ -90,12 +90,9 @@ export function RegisterModal() {
       const response = await Api.auth.register(updatedCredentials);
       const token = response.accessToken;
       const email = response.userEmailFromToken;
-      const token_response = await Actions.token.saveToken(token);
+      await Actions.token.saveToken(token);
       localStorage.setItem('userEmail', email);
-
-      // const action_response = await Actions.roles.getRole(token);
-      // console.log(action_response);
-      router.push('/posts');
+      router.push('/profile-pictire');
       dispatch(closeRegisterModal());
       registerForm.reset();
     } catch (error: any) {
