@@ -15,10 +15,14 @@ const images = [
 
 const ProfilePicturePage = () => {
   const [chosenPicture, setChosenPicture] = useState<string>('');
+  const [isSubmitLoading, setSubmitLoading] = useState<boolean>(false);
+
   const router = useRouter();
 
   const selectProfile = async () => {
+    setSubmitLoading(true);
     try {
+      
       const response = await Api.users.updateProfilePicture(
         currentUser.id,
         chosenPicture,
@@ -26,14 +30,18 @@ const ProfilePicturePage = () => {
       console.log(response)
       if (response.success === true) {
         router.push('/posts');
+         setSubmitLoading(false);
       } else {
         showErrorToast('Возникла ошибка при установлении картинки профиля');
       }
     } catch (error) {
+      setSubmitLoading(false);
       showErrorToast('Возникла ошибка при установлении картинки профиля');
       console.log(
         'Error occured while updating Profile Picture for' + currentUser.name,
       );
+    } finally {
+      setSubmitLoading(false);
     }
   };
 
@@ -63,19 +71,19 @@ const ProfilePicturePage = () => {
           draggable={false}
           className="w-full h-full object-cover absolute blur-3xl pointer-events-none brightness-50"
           src={chosenPicture}
-          alt={chosenPicture.split("/")[2] + "picture"}
+          alt={chosenPicture.split('/')[2] + 'picture'}
         />
       )}
-      <div className="flex flex-col z-[1000] w-full">
-        <h1 className="text-xl md:text-3xl text-white text-center">
-          Выберите аватар (знаю, пока выбора мало 😿)
+      <div className="flex flex-col z-[1000] w-full space-y-10">
+        <h1 className="text-2xl md:text-3xl text-white font-bold text-center">
+          Выберите аватар
         </h1>
         <div className="w-full flex-wrap flex items-center justify-center gap-8 mt-10">
           {images.map((imgSrc, index) => (
             <div
               key={index}
               onClick={() => handlePictureClick(imgSrc)}
-              className={`w-44 h-44 rounded-md flex items-center justify-center border-2 ${chosenPicture === imgSrc ? 'border-white border-3 border-dashed' : 'border-transparent'} cursor-pointer overflow-hidden`}
+              className={`sm:w-44 sm:h-44 w-20 h-20 rounded-md flex items-center justify-center border-2 hover:border-white  hover:border-dashed ${chosenPicture === imgSrc ? 'border-white border-3 border-dashed scale-[1.1]' : 'border-transparent'} cursor-pointer overflow-hidden`}
             >
               <img
                 draggable={false}
@@ -88,7 +96,10 @@ const ProfilePicturePage = () => {
         </div>
         {chosenPicture && (
           <div className="mt-4 text-center">
-            <Button onClick={selectProfile}>Сохранить аватар</Button>
+            <Button onClick={selectProfile} disabled={isLoading}>
+              {' '}
+              {isSubmitLoading ? 'Сохранение аватара' : 'Сохранить аватар'}
+            </Button>
           </div>
         )}
       </div>

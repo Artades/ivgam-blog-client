@@ -44,7 +44,7 @@ const PreviewBillboard:FC<PreviewBillboardProps> = ({title, imageUrl, date, hash
 
           <Date timestamp={date} />
 
-        <Hashtags hashtags={hashtagsArr} flexDir="flex-row"/>
+        <Hashtags hashtags={hashtagsArr} flexDir="flex-row" position="post-page"/>
         </div>
       </div>
     );

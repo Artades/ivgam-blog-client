@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { LoginModal } from '../Modals/LoginModal';
 import { RegisterModal } from '../Modals/RegisterModal';
 import { SuccessModal } from '../Modals/SuccessModal';
+import Aside from '../Aside/Aside';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   
@@ -29,7 +30,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               >
                 {children}
               </div>
-              {/* <FollowBar /> */}
+              <Aside />
             </div>
           </div>
         </Wrapper>

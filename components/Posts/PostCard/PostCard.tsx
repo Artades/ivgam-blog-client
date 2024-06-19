@@ -60,7 +60,7 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
 // console.log("Data: ", post)
   return (
     <Card
-      className={`w-full   rounded-lg border border-zinc-700  h-[500px] bg-black`}
+      className={`w-full   rounded-lg border border-zinc-700  h-[500px] bg-blackz`}
       style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
     >
       <div className="w-full h-full grid grid-cols-1 grid-rows-6 relative">
