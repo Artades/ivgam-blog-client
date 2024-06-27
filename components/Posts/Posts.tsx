@@ -9,7 +9,7 @@ import * as Api from '@/api';
 import CustomError from '../Error/CustomError';
 
 const Posts = () => {
-  useAuthentication("/posts");
+  // useAuthentication("/posts");
 
    const { data, isError, isFetching, isSuccess } = useQuery({
      queryKey: ['posts'],
@@ -17,6 +17,7 @@ const Posts = () => {
    });
 
   const posts = data ?? [];
+  console.log(posts)
 
   return (
     <>

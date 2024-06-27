@@ -87,11 +87,8 @@ export function RegisterModal() {
       const updatedCredentials = { ...restCredentials, name: fullName };
       console.log(registerForm.getValues());
 
-      const response = await Api.auth.register(updatedCredentials);
-      const token = response.accessToken;
-      const email = response.userEmailFromToken;
-      await Actions.token.saveToken(token);
-      localStorage.setItem('userEmail', email);
+       await Api.auth.register(updatedCredentials);
+     
       router.push('/profile-pictire');
       dispatch(closeRegisterModal());
       registerForm.reset();

@@ -17,13 +17,12 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
-  const { authStatus } = useSelector((state: RootState) => state.authStatus);
+  const { authStatus } = useSelector((state: RootState) => state.user);
+  // const isAuthor = useRole('author');
 
-  const isAuthor = useRole('author');
-
-  if (isAuthor === null) {
-    return <div>Загрузка...</div>; // Показывайте индикатор загрузки
-  }
+  // if (isAuthor === null) {
+  //   return <div>Загрузка...</div>; // Показывайте индикатор загрузки
+  // }
 
   return (
     <div className="hidden lg:block md:col-span-1 h-full w-full  lg:pr-6 py-7">
@@ -58,7 +57,7 @@ const Sidebar = () => {
             </div>
           ) : (
             <div className="w-full flex flex-col space-y-2 py-10">
-              {!isAuthor ? (
+              {false ? (
                 <Button
                   size={'lg'}
                   variant={'default'}

@@ -3,6 +3,7 @@ import MobileSheetSlice from './slices/mobileSheetSlice';
 import authStatusSlice from './slices/authStatusSlice';
 import { loginModalReducer, registerModalReducer } from './slices/authModalsSlice';
 import { successModalReducer } from './slices/successModalSlice';
+import userSlice from './slices/userSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,7 +11,8 @@ export const store = configureStore({
     registerModal: registerModalReducer,
     mobileSheet: MobileSheetSlice,
     authStatus: authStatusSlice,
-    successModal: successModalReducer
+    successModal: successModalReducer,
+    user: userSlice
   },
 });
 

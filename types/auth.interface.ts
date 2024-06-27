@@ -9,6 +9,5 @@ export type RegisterFormDTO = LoginFormDTO & {
 
 export interface LoginResponseDTO {
   accessToken: string;
-  userEmailFromToken: string;
 }
 export type RegisterResponseDTO = LoginResponseDTO;

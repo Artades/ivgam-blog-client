@@ -32,7 +32,6 @@ import {
   FormMessage,
 } from '../ui/form';
 import { showErrorToast } from '../Error/showErrorToast';
-import * as Actions from '@/actions';
 
 const loginFormSchema = z.object({
   email: z.string().email({
@@ -63,14 +62,10 @@ export function LoginModal() {
   const handleLogin = async (credentials: z.infer<typeof loginFormSchema>) => {
     try {
       setLoading(true);
-      const response = await Api.auth.login(credentials);
-      const token = response.accessToken;
-      const email = response.userEmailFromToken;
-      const token_response = await Actions.token.saveToken(token);
-      console.log("Token_Response: ", token_response)
-      localStorage.setItem('userEmail', email);
-      // const action_response = await Actions.roles.getRole(token);
-      // console.log(action_response);
+     let res = await Api.auth.login(credentials);
+
+     console.log(res)
+    
       router.push('/posts');
       dispatch(closeLoginModal());
       loginForm.reset();

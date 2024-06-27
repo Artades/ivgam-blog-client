@@ -12,17 +12,17 @@ const CreatePost = () => {
   const router = useRouter();
   // useAuthentication('/create'); // Вызов всегда должен быть на одном уровне
   // //
-  const isAuthor = useRole('author', '/suggest');
+  // const isAuthor = useRole('author', '/suggest');
 
-  useEffect(() => {
-    if (isAuthor === false) {
-      router.push('/suggest');
-    }
-  }, [isAuthor, router]);
+  // useEffect(() => {
+  //   if (isAuthor === false) {
+  //     router.push('/suggest');
+  //   }
+  // }, [isAuthor, router]);
 
-  if (isAuthor === null) {
-    return <div>Загрузка...</div>;
-  }
+  // if (isAuthor === null) {
+  //   return <div>Загрузка...</div>;
+  // }
 
   return (
     <div className="w-ful">

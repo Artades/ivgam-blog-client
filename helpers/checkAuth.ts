@@ -1,22 +1,24 @@
-import { getAccessToken } from "./cookies";
-
-
 export const checkAuth = async () => {
-  const authToken: string | undefined  = await getAccessToken()
-    .then((result) => {
-      // console.log('Access Token :', result.accessToken);
-      return result.accessToken;
-    })
-    .catch((error) => {
+  
+  const authResponse: {id: number, role: string,  message: string, success: boolean} = await fetch("/api/token")
+  .then((response) => response.json())
+  .then((data) => {
+    return data;
+  })
+    .catch((error: any) => {
       console.error(error);
       return undefined;
     });
 
   try {
-    // Check if the user is authenticated based on a cookie key
-    if (authToken) {
+    if (authResponse.success) {
       return {
-        props: {},
+        props: {
+          id: authResponse.id,
+          message: authResponse.message,
+          success: authResponse.success,
+          role: authResponse.role
+        },
       };
     } else {
       return {
@@ -28,7 +30,6 @@ export const checkAuth = async () => {
     }
   } catch (err) {
     console.error('Authentication error:', err);
-
     return {
       redirect: {
         destination: '/',

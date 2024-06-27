@@ -1,3 +1,5 @@
+"use server";
+
 import axios from '@/http/axios';
 import { CreatePostDTO, PostItemProps } from '@/types/post.interface';
 import { SuggestDTO } from '@/types/suggest.interface';
@@ -9,7 +11,7 @@ export const suggest = async (
 };
 
 export const getAllPosts = async (): Promise<PostItemProps[]> => {
-  return (await axios.get(`/posts/getAll`)).data;
+  return (await axios.get(`/posts/getAll`, {withCredentials: true})).data;
 };
 
 export const likePost = async (
