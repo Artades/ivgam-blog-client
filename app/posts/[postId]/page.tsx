@@ -29,8 +29,6 @@ export default async function PostPage({ params }: Props) {
   const post = await Actions.posts.getPostById(id);
 
   return (
-    <div>
     <PostPreview post={post} />
-  </div>
   )
 }

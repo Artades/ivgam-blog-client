@@ -1,5 +1,3 @@
-"use server";
-
 import axios from '@/http/axios';
 import { CreatePostDTO, PostItemProps } from '@/types/post.interface';
 import { SuggestDTO } from '@/types/suggest.interface';
@@ -11,7 +9,7 @@ export const suggest = async (
 };
 
 export const getAllPosts = async (): Promise<PostItemProps[]> => {
-  return (await axios.get(`/posts/getAll`, {withCredentials: true})).data;
+  return (await axios.get(`/posts/getAll`, { withCredentials: true })).data;
 };
 
 export const likePost = async (
@@ -33,6 +31,16 @@ export const getPostById = async (postId: number): Promise<PostItemProps> => {
   return (await axios.get(`/posts/${postId}`)).data;
 };
 
+export const viewPost = async (postId: number): Promise<{ success: true }> => {
+  try {
+    const response = await axios.patch(`/posts/view/${postId}`, null, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('Error viewing post: ' + error);
+  }
+};
 export const createPost = async (
   credentials: CreatePostDTO,
 ): Promise<{ success: boolean }> => {
@@ -46,9 +54,9 @@ export const createPost = async (
 
   const config = {
     headers: { 'Content-Type': 'multipart/form-data' },
+    withCredentials: true
   };
 
-  console.log('FORM DATA FROM AXIOS: ');
 
   return (await axios.post(`/posts/createPost`, formData, config)).data;
 };

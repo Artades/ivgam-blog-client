@@ -2,7 +2,7 @@ import { UserProps } from "@/types/user.interface";
 
 export const getPopularHashtags = async (): Promise<string[]> => {
    const res = await fetch(`http://localhost:4000/api/posts/popularHashtags`, {next: {
-        revalidate: 900,
+        revalidate: 0,
     },});
 
     if (!res.ok) {
@@ -16,7 +16,7 @@ export const getPopularHashtags = async (): Promise<string[]> => {
 export const getActiveUsers = async():Promise<UserProps[]> => {
     const res = await fetch(`http://localhost:4000/api/users/activeUsers`, {
       next: {
-        revalidate: 900,
+        revalidate: 0,
       },
       
     });

@@ -25,8 +25,7 @@ export function MobileSheet() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { authStatus } = useSelector((state: RootState) => state.user);
-  // const isAuthor = useRole('author');
+  const { authStatus, role } = useSelector((state: RootState) => state.user);
 
   return (
     <Sheet>
@@ -66,7 +65,7 @@ export function MobileSheet() {
                 </div>
               ) : (
                 <div className="w-full flex flex-col space-y-2 py-10">
-                  {false ? (
+                  {role !== "author" ? (
                     <Button
                       size={'lg'}
                       variant={'default'}

@@ -16,13 +16,8 @@ import useRole from '@/hooks/useRole';
 const Sidebar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const pathname = usePathname();
-  const { authStatus } = useSelector((state: RootState) => state.user);
-  // const isAuthor = useRole('author');
 
-  // if (isAuthor === null) {
-  //   return <div>Загрузка...</div>; // Показывайте индикатор загрузки
-  // }
+  const { authStatus, role } = useSelector((state: RootState) => state.user);
 
   return (
     <div className="hidden lg:block md:col-span-1 h-full w-full  lg:pr-6 py-7">
@@ -57,7 +52,7 @@ const Sidebar = () => {
             </div>
           ) : (
             <div className="w-full flex flex-col space-y-2 py-10">
-              {false ? (
+              { role !== "author" ? (
                 <Button
                   size={'lg'}
                   variant={'default'}

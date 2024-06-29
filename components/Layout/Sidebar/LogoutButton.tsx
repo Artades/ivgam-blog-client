@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { burnAuthData } from '@/helpers/cookies';
-import { removeAuthStatus } from '@/store/slices/authStatusSlice';
+import { resetUser } from '@/store/slices/userSlice';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -8,12 +8,14 @@ import { useDispatch } from 'react-redux';
 const LogoutButton = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+
   const handleLogout = () => {
     localStorage.removeItem('userEmail');
     localStorage.removeItem('suggestions');
-    burnAuthData();
+    dispatch(resetUser());
 
-    dispatch(removeAuthStatus());
+    burnAuthData()
+
     router.push('/');
   };
   return (

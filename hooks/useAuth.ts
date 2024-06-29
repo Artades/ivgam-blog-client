@@ -16,8 +16,6 @@ const useAuthentication = (direction?: string) => {
       try {
         const authStatus: any = await checkAuth();
 
-        console.log(authStatus)
-
         if ('redirect' in authStatus) {
           router.push('/');
           dispatch(openLoginModal());

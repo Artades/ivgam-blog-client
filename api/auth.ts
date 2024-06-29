@@ -1,5 +1,3 @@
-"use server";
-
 import axios from '@/http/axios';
 import { LoginFormDTO, LoginResponseDTO, RegisterFormDTO, RegisterResponseDTO } from '@/types/auth.interface';
 

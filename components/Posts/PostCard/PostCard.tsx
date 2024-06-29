@@ -14,6 +14,8 @@ import SkeletonPost from '@/components/Skeletons/SkeletonPost';
 import { UserProps } from '@/types/user.interface';
 import ShareButton from '../PostAction/ShareButton';
 import Date from '../PostAction/Date';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 interface PostCardProps {
   postId: number;
@@ -32,15 +34,15 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
 
   const post = data as PostItemProps;
 
-  const userEmail =
-    typeof window !== 'undefined' ? localStorage.getItem('userEmail') : '';
-  const {data: userData}= useQuery({
-    queryKey: ['users', userEmail],
-    queryFn: () => Api.users.getUserByEmail(userEmail!),
-    enabled: !!userEmail,
+  const { id } = useSelector((state: RootState) => state.user);
+
+  const { data: userData } = useQuery({
+    queryKey: ['users', id],
+    queryFn: () => Api.users.getUserById(id),
+    enabled: !!id,
   });
 
-  const user  = userData ?? {} as UserProps;
+  const user = userData ?? {} as UserProps;
   const userFavorites = user?.favorites ?? [];
 
   const isLiked = useLike({ postId: post?.id, userFavorites });
@@ -57,7 +59,7 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
       />
     );
   }
-// console.log("Data: ", post)
+  // console.log("Data: ", post)
   return (
     <Card
       className={`w-full   rounded-lg border border-zinc-700  h-[500px] bg-blackz`}
@@ -92,10 +94,10 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
               />
             </article>
             <article className="flex justify-between items-center w-full">
-              <ViewState />
-              
-                <Date timestamp={post.dateOfCreation} />
-             
+              <ViewState viewsCount={post.views} />
+
+              <Date timestamp={post.dateOfCreation} />
+
             </article>
           </div>
         </div>
