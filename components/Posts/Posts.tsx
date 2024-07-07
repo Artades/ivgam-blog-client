@@ -17,7 +17,7 @@ const Posts = () => {
   });
 
   const posts = data ?? [];
-  console.log(posts)
+
 
   return (
     <>

@@ -10,12 +10,17 @@ import remarkGfm from 'remark-gfm';
 import { PostItemProps } from '@/types/post.interface';
 import PreviewBillboard from './PreviewBillboard/PreviewBillboard';
 import * as Api from "@/api"
+import PostComments from './PostComments/PostComments';
+import useAuthentication from '@/hooks/useAuth';
 
 interface PostPreviewProps {
   post: PostItemProps;
 }
 
 const PostPreview: React.FC<PostPreviewProps> = ({ post }) => {
+
+  useAuthentication(`/posts/${post.id}`);
+
   const markdown = post.body;
 
   const viewPost = useCallback(async () => {
@@ -29,7 +34,7 @@ const PostPreview: React.FC<PostPreviewProps> = ({ post }) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       viewPost();
-    }, 1000); 
+    }, 1000);
 
     return () => clearTimeout(timeoutId);
   }, [viewPost]);
@@ -46,6 +51,7 @@ const PostPreview: React.FC<PostPreviewProps> = ({ post }) => {
             </div>
           </Wrapper>
         </div>
+        <PostComments postId={post.id} />
       </div>
     </>
   );
