@@ -5,6 +5,16 @@ export const createComment = async (createCommentDto: CreateCommentDto): Promise
     return (await axios.post(`/comments/create/`, createCommentDto)).data;
 }
 
-export const getAllComments = async (postId: number): Promise<CommentProps[]> => {
-    return (await axios.get(`/comments/getAll/${postId}`)).data;
-}
+export const getAllComments = async (dto: { postId: number; page: number }): Promise<{comments: CommentProps[], amount: number}> => {
+    const { postId, page } = dto;
+
+      const response = await axios.get(`/comments/getAll/`, {
+        params: {
+          postId,
+          page,
+        },
+      });
+  
+      return response.data;
+    
+  };

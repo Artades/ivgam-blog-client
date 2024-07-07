@@ -4,8 +4,8 @@ import { FaUser } from 'react-icons/fa';
 export const items = [
   {
     icon: BsHouseFill,
-    label: 'Главная',
-    href: '/',
+    label: 'Посты',
+    href: '/posts',
   },
   {
     icon: BsHeartFill,

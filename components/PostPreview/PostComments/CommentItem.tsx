@@ -18,9 +18,7 @@ const CommentItem: FC<CommentItemProps> = ({ user, body, likes }) => {
                 </div>
             </div>
             <p className="mb-2">{body}</p>
-            {/* <div className="flex items-center text-gray-500">
-                <span className="mr-2">❤️ {likes}</span>
-            </div> */}
+          
         </div>
     );
 };
