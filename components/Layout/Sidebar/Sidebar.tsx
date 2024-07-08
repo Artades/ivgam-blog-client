@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SidebarItem from './SidebarItem';
 import SidebarLogo from './SidebarLogo';
@@ -10,8 +10,7 @@ import {
 } from '@/store/slices/authModalsSlice';
 import { RootState } from '@/store';
 import LogoutButton from './LogoutButton';
-import { usePathname, useRouter } from 'next/navigation';
-import useRole from '@/hooks/useRole';
+import {  useRouter } from 'next/navigation';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -26,6 +25,8 @@ const Sidebar = () => {
         <div className="space-y-2 ">
           {items.map((item) => (
             <SidebarItem
+              auth={authStatus}
+            
               key={item.href}
               href={item.href}
               icon={item.icon}
