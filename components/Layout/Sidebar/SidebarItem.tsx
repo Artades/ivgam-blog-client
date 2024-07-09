@@ -1,3 +1,5 @@
+'use client';
+import { RootState } from '@/store';
 import { openLoginModal } from '@/store/slices/authModalsSlice';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useCallback } from 'react';
@@ -6,7 +8,7 @@ import { IconType } from 'react-icons';
 // import useLoginModal from '@/hooks/useLoginModal';
 // import useCurrentUser from '@/hooks/useCurrentUser';
 import { BsDot } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface SidebarItemProps {
   label: string;
@@ -26,18 +28,25 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { id } = useSelector((state: RootState) => state.user);
 
   const handleClick = useCallback(() => {
     if (auth === 'not authenticated') {
       dispatch(openLoginModal());
     } else if (href) {
-      router.push(href);
+      if (href === '/profile') {
+        router.push(`${href}/${id}`);
+      } else {
+        router.push(href);
+      }
     }
-  }, [router, href, auth, dispatch]);
+  }, [router, href, auth, dispatch, id]);
 
   const pathname = usePathname();
 
-  const activeStyle = href === pathname ?  "bg-zinc-300 bg-opacity-10" : "bg-transparent"
+  const activeStyle =
+    href === pathname ? 'bg-zinc-300 bg-opacity-10' : 'bg-transparent';
+
   return (
     <div className="w-full flex flex-row items-center " onClick={handleClick}>
       <div

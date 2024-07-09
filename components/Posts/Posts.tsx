@@ -22,7 +22,7 @@ const Posts = () => {
   return (
     <>
       <Helmet pageTitle="Посты" breadCrumbs={postsBreadcrumbs} />
-      <div className="sm:px-5 py-5">
+      <div className="py-5">
         {isSuccess && <PostsGrid posts={posts} />}
       </div>
       {isError && (

@@ -1,4 +1,4 @@
-import { BsHouseFill, BsHeartFill } from 'react-icons/bs';
+import { BsHouseFill, BsHeartFill, BsImage } from 'react-icons/bs';
 import { FaUser } from 'react-icons/fa';
 
 export const items = [
@@ -7,16 +7,18 @@ export const items = [
     label: 'Посты',
     href: '/posts',
   },
-  {
-    icon: BsHeartFill,
-    label: 'Избранные',
-    href: '/notifications',
-    auth: true,
-  },
+  
   {
     icon: FaUser,
     label: 'Профиль',
-    href: `/users/`,
+    href: `/profile`,
+    auth: true,
+  },
+  {
+    icon: BsImage,
+    label: 'Изображения',
+    href: '/images',
+    devMode: true,
     auth: true,
   },
 ];
