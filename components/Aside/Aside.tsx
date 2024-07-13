@@ -3,7 +3,7 @@ import { FilterUsers } from './PopularUsers';
 import * as Actions from "@/actions";
 import Hashtags from '../Hashtags/Hashtags';
 
-const Aside = async() => {
+const Aside = async () => {
   const hashtags = await Actions.aside.getPopularHashtags();
   const users = await Actions.aside.getActiveUsers();
     return (

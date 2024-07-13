@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import { Card } from "@/components/ui/card"
+
 interface Hashtags {
     flexDir: string;
     hashtags: string[];
-    position: "aside" | "post-page"
+    position: "aside" | "post-page";
 }
+
 const Hashtags:FC<Hashtags> = ({flexDir, hashtags, position}) => {
     
     return (

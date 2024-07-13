@@ -2,6 +2,9 @@
 const nextConfig = {
     images: {
         domains: ["localhost"]
+    },
+    env: {
+        "dev_api": "http://localhost:4000/api"
     }
 };
 
