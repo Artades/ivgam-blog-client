@@ -1,11 +1,13 @@
 'use client';
 
-import useCurrentUser from '@/hooks/userCurrentUser';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import * as Api from '@/api';
 import { showErrorToast } from '@/components/Error/showErrorToast';
 import { Button } from '@/components/ui/button';
+import useAuthentication from '@/hooks/useAuth';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const images = [
   '/assets/default-blue.png',
@@ -14,51 +16,33 @@ const images = [
 ];
 
 const ProfilePicturePage = () => {
+  useAuthentication('/profile-picture');
+
   const [chosenPicture, setChosenPicture] = useState<string>('');
   const [isSubmitLoading, setSubmitLoading] = useState<boolean>(false);
+  const { id } = useSelector((state: RootState) => state.user);
 
   const router = useRouter();
 
   const selectProfile = async () => {
     setSubmitLoading(true);
     try {
-      
-      const response = await Api.users.updateProfilePicture(
-        currentUser.id,
-        chosenPicture,
-      );
-      console.log(response)
+      const response = await Api.users.updateProfilePicture(id, chosenPicture);
+      console.log(response);
       if (response.success === true) {
         router.push('/posts');
-         setSubmitLoading(false);
+        setSubmitLoading(false);
       } else {
         showErrorToast('Возникла ошибка при установлении картинки профиля');
       }
     } catch (error) {
       setSubmitLoading(false);
       showErrorToast('Возникла ошибка при установлении картинки профиля');
-      console.log(
-        'Error occured while updating Profile Picture for' + currentUser.name,
-      );
+      console.log('Error occured while updating Profile Picture for');
     } finally {
       setSubmitLoading(false);
     }
   };
-
-  const { data: currentUser, isLoading, error } = useCurrentUser();
-
-  if (isLoading)
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <p className="text-lg">Загрузка страницы...</p>
-      </div>
-    );
-  if (error)
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <p className="text-lg">Ошибка получения данных о пользователе</p>
-      </div>
-    );
 
   const handlePictureClick = (imgSrc: string) => {
     setChosenPicture(imgSrc);
@@ -96,7 +80,7 @@ const ProfilePicturePage = () => {
         </div>
         {chosenPicture && (
           <div className="mt-4 text-center">
-            <Button onClick={selectProfile} disabled={isLoading}>
+            <Button onClick={selectProfile} disabled={isSubmitLoading}>
               {' '}
               {isSubmitLoading ? 'Сохранение аватара' : 'Сохранить аватар'}
             </Button>

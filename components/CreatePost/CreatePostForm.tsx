@@ -23,7 +23,7 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
 const MdEditorCustom = dynamic(() => import('./MDEditor/MdEditorCustom'), {
-  ssr: false,
+  ssr: true,
 });
 const createFormSchema = z.object({
   topic: z.string().min(4, {
@@ -35,9 +35,7 @@ const createFormSchema = z.object({
   body: z.string().min(20, {
     message: 'Подробно опишите вашу идею.Минимум 20 символов',
   }),
-  creator: z.string().email({
-    message: "Укажите валидного пользователя, а именного email"
-  }),
+
   hashtags: z.array(z.string()).optional(),
   image: z.any().optional(),
 });
@@ -46,6 +44,7 @@ export function CreatePostForm() {
   const router = useRouter();
   const [isLoading, setLoading] = useState<boolean>(false);
   const [hashtags, setHashtags] = useState<string[]>([]);
+
 
   const createForm = useForm<z.infer<typeof createFormSchema>>({
     resolver: zodResolver(createFormSchema),
@@ -63,7 +62,9 @@ export function CreatePostForm() {
 
   const handleHashtagsChange = (updatedHashtags: string[]) => {
     setHashtags(updatedHashtags);
+    createForm.setValue('hashtags', updatedHashtags);
   };
+
   const handleImageChange = (file: File) => {
     createForm.setValue('image', file);
   };
@@ -83,7 +84,7 @@ export function CreatePostForm() {
       };
 
       const response = await Api.posts.createPost(updatedCredentials);
-      console.log(response);
+      
       // Reset the form
       createForm.reset();
       setHashtags([]);
@@ -191,7 +192,7 @@ export function CreatePostForm() {
           )}
         />
 
-        <FormField
+        {/* <FormField
           disabled={isLoading}
           control={createForm.control}
           name="creator"
@@ -209,7 +210,7 @@ export function CreatePostForm() {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <div className="flex flex-col items-start gap-y-4">
           <Button

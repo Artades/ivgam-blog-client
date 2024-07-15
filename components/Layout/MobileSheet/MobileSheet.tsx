@@ -1,11 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import SidebarItem from '../Sidebar/SidebarItem';
 import SidebarLogo from '../Sidebar/SidebarLogo';
 import { items } from '@/config/nav';
@@ -39,6 +35,7 @@ export function MobileSheet() {
             <div className="space-y-2 ">
               {items.map((item) => (
                 <SidebarItem
+                  auth={authStatus}
                   key={item.href}
                   href={item.href}
                   icon={item.icon}
@@ -65,7 +62,7 @@ export function MobileSheet() {
                 </div>
               ) : (
                 <div className="w-full flex flex-col space-y-2 py-10">
-                  {role !== "author" ? (
+                  {role !== 'author' ? (
                     <Button
                       size={'lg'}
                       variant={'default'}

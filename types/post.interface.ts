@@ -18,5 +18,4 @@ export type CreatePostDTO = {
   body: string;
   hashtags: string;
   image?: any;
-  creator: string;
 }

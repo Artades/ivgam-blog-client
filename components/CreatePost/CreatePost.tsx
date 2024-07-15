@@ -1,7 +1,5 @@
 'use client';
-
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import useRole from '@/hooks/useRole';
 import Helmet from '../Helmet/Helmet';
 import { createBreadcrumbs } from './constants';
@@ -10,16 +8,17 @@ import useAuthentication from '@/hooks/useAuth';
 import NoAccess from '../NoAccess/NoAccess';
 
 const CreatePost = () => {
-  useAuthentication('/create'); // Always at the same level
+  useAuthentication('/create');
 
   const hasRole = useRole('author', '/suggest');
 
-
   if (!hasRole) {
-    return  <NoAccess
-    title="403 | Доступ ограничен"
-    description="У вас нет необходимых прав доступа для просмотра этой страницы."
-  /> 
+    return (
+      <NoAccess
+        title="403 | Доступ ограничен"
+        description="У вас нет необходимых прав доступа для просмотра этой страницы."
+      />
+    );
   }
 
   return (

@@ -15,25 +15,25 @@ const HashtagInput: React.FC<HashtagInputProps> = ({
   const [hashtag, setHashtag] = useState('');
   const [hashtags, setHashtags] = useState<string[]>(initialHashtags);
 
-  const updateHashtags = useCallback(() => {
+  useEffect(() => {
     onUpdate(hashtags);
   }, [hashtags, onUpdate]);
 
-  useEffect(() => {
-    updateHashtags();
-  }, [hashtags, updateHashtags]);
-
   const handleAddHashtag = () => {
     if (hashtag.trim() !== '') {
-      setHashtags((prevHashtags) => [...prevHashtags, hashtag]);
+      setHashtags((prevHashtags) => {
+        const newHashtags = [...prevHashtags, hashtag];
+        onUpdate(newHashtags);
+        return newHashtags;
+      });
       setHashtag('');
     }
   };
 
   const handleRemoveHashtag = (index: number) => {
     setHashtags((prevHashtags) => {
-      const updatedHashtags = [...prevHashtags];
-      updatedHashtags.splice(index, 1);
+      const updatedHashtags = prevHashtags.filter((_, i) => i !== index);
+      onUpdate(updatedHashtags);
       return updatedHashtags;
     });
   };
