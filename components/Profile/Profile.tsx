@@ -3,14 +3,16 @@
 
 import useAuthentication from '@/hooks/useAuth';
 import { UserProps } from '@/types/user.interface';
-import React, { FC, ReactNode } from 'react';
+import React, { FC} from 'react';
 import Wrapper from '../Layout/Wrapper/Wrapper';
 import Image from 'next/image';
 import Helmet from '../Helmet/Helmet';
-import { profileBreadcrumbs } from './constants';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 import { normalizeRole } from '@/helpers/normalizeRole';
 import ProfileFavorites from './ProfileFavorites';
 import Empty from '../Empty/Empty';
+import { Breadcrumbs } from '@/helpers/breadCrumbs';
 
 interface ProfileProps {
   user: UserProps;
@@ -18,22 +20,22 @@ interface ProfileProps {
 
 const Profile: FC<ProfileProps> = ({ user }) => {
   useAuthentication(`/profile/${user.id}`);
+  const { id, role } = useSelector((state: RootState) => state.user);
 
-  const breadcrumbs = profileBreadcrumbs.items.map((item) => {
-    if (item.href === '/profile') {
-      item.href = `/profile/${user.id}`;
-    }
-    return item;
-  });
+  const breadCrumbs = new Breadcrumbs(
+    `profile/${id}`,
+    role,
+    id,
+  ).generateBreadcrumbs();
 
-  const { role, Icon } = normalizeRole(user.role) as {
+  const { role: userRole, Icon } = normalizeRole(user.role) as {
     role: string;
     Icon: React.ElementType;
   };
 
   return (
     <>
-      <Helmet pageTitle="Профиль" breadCrumbs={{ items: [...breadcrumbs] }} />
+      <Helmet pageTitle="Профиль" breadCrumbs={{ items: [...breadCrumbs] }} />
       <Wrapper>
         <div className="w-full h-[50dvh] rounded-lg ">
           <section className="flex items-center justify-center flex-col py-10 border-b border-zinc-800 bg-zinc-950">
@@ -54,7 +56,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
               </p>
               <div className="flex items-center justify-center space-x-3">
                 <p className="text-xl underline underline-offset-4 leading-tight text-zinc-500">
-                  {role}
+                  {userRole}
                 </p>
                 {Icon && <Icon className="w-6 h-6" />}
               </div>
