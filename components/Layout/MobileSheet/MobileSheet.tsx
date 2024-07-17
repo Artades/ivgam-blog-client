@@ -5,7 +5,6 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import SidebarItem from '../Sidebar/SidebarItem';
 import SidebarLogo from '../Sidebar/SidebarLogo';
 import { items } from '@/config/nav';
-import { HiOutlineMenuAlt2 } from 'react-icons/hi';
 import LogoutButton from '../Sidebar/LogoutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
@@ -14,7 +13,6 @@ import {
   openLoginModal,
   openRegisterModal,
 } from '@/store/slices/authModalsSlice';
-import useRole from '@/hooks/useRole';
 import MenuIcon from './MenuIcon';
 
 export function MobileSheet() {
@@ -40,6 +38,7 @@ export function MobileSheet() {
                   href={item.href}
                   icon={item.icon}
                   label={item.label}
+                  unavailable={item.unavailable}
                 />
               ))}
 

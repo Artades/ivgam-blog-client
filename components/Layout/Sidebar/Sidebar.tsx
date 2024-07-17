@@ -10,7 +10,7 @@ import {
 } from '@/store/slices/authModalsSlice';
 import { RootState } from '@/store';
 import LogoutButton from './LogoutButton';
-import {  useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const Sidebar = () => {
           {items.map((item) => (
             <SidebarItem
               auth={authStatus}
-            
+              unavailable={item.unavailable}
               key={item.href}
               href={item.href}
               icon={item.icon}
@@ -53,7 +53,7 @@ const Sidebar = () => {
             </div>
           ) : (
             <div className="w-full flex flex-col space-y-2 py-10">
-              { role !== "author" ? (
+              {role !== 'author' ? (
                 <Button
                   size={'lg'}
                   variant={'default'}

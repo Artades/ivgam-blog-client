@@ -11,10 +11,10 @@ import { BsDot } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface SidebarItemProps {
+  unavailable: boolean;
   label: string;
   icon: IconType;
   href: string;
-
   auth: string;
   alert?: boolean;
 }
@@ -25,6 +25,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   href,
   auth,
   alert,
+  unavailable,
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -36,19 +37,28 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     } else if (href) {
       if (href === '/profile') {
         router.push(`${href}/${id}`);
-      } else {
+      } else if (!unavailable) {
         router.push(href);
+      } else {
+        return;
       }
     }
-  }, [router, href, auth, dispatch, id]);
+  }, [router, href, auth, dispatch, id, unavailable]);
 
   const pathname = usePathname();
 
   const activeStyle =
     href === pathname ? 'bg-zinc-300 bg-opacity-10' : 'bg-transparent';
+  const unavailableStyle =
+    unavailable === true
+      ? "opacity-50 after:content-['Dev'] after:text-xs after:absolute after:top-1 "
+      : 'opacity-100';
 
   return (
-    <div className="w-full flex flex-row items-center " onClick={handleClick}>
+    <div
+      className={`w-full  flex flex-row items-center relative `}
+      onClick={handleClick}
+    >
       <div
         className={`
         w-full
@@ -63,7 +73,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         hover:bg-opacity-10
         cursor-pointer
         items-center
-
+        ${unavailableStyle}
         ${activeStyle}
       `}
       >
