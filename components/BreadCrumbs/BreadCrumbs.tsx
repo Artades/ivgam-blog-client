@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/breadcrumb';
 import React from 'react';
 import { usePathname } from 'next/navigation';
+import TransitionLink from '../TransitionLink/TransitionLink';
 
 export interface BreadCrumbsProps {
   items: { id: number; name: string; href: string, current: boolean }[];
@@ -24,7 +25,7 @@ export function BreadCrumbs({ items }: BreadCrumbsProps) {
             <BreadcrumbItem>
               {!item.current ? (
                 <BreadcrumbLink asChild>
-                  <Link href={item.href}>{item.name}</Link>
+                  <TransitionLink href={item.href}>{item.name}</TransitionLink>
                 </BreadcrumbLink>
               ) : (
                 <BreadcrumbPage>{item.name}</BreadcrumbPage>

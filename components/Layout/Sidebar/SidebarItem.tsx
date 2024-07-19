@@ -1,4 +1,5 @@
 'use client';
+import { handleTransition } from '@/helpers/transitions';
 import { RootState } from '@/store';
 import { openLoginModal } from '@/store/slices/authModalsSlice';
 import { usePathname, useRouter } from 'next/navigation';
@@ -51,13 +52,13 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     href === pathname ? 'bg-zinc-300 bg-opacity-10' : 'bg-transparent';
   const unavailableStyle =
     unavailable === true
-      ? "opacity-50 after:content-['Dev'] after:text-xs after:absolute after:top-1 "
+      ? "opacity-50 after:content-['Dev'] after:text-xs after:absolute after:top-0 "
       : 'opacity-100';
 
   return (
     <div
       className={`w-full  flex flex-row items-center relative `}
-      onClick={handleClick}
+      onClick={(e) => handleTransition(e, handleClick, 500)}
     >
       <div
         className={`

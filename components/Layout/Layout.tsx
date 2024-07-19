@@ -16,7 +16,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <div
         className={cn(
           'h-screen bg-black',
-          // authStatus === 'not authenticated' ? 'blur-md' : '',
         )}
       >
         <Wrapper>
