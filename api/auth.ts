@@ -12,3 +12,8 @@ export const register = async (
 ): Promise<RegisterResponseDTO> => {
   return (await axios.post('/auth/signUp', credentials, {withCredentials: true})).data;
 };
+
+export const burnAuthToken = async (
+):Promise<void> => {
+  return (await axios.post('/auth/burnToken', {}, {withCredentials: true})).data;
+}

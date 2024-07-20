@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import useRole from '@/hooks/useRole';
 import Helmet from '../Helmet/Helmet';
 import { CreatePostForm } from './CreatePostForm';
 import useAuthentication from '@/hooks/useAuth';
@@ -12,10 +11,10 @@ import { RootState } from '@/store';
 const CreatePost = () => {
   useAuthentication('/create');
   const { id, role } = useSelector((state: RootState) => state.user);
-  const hasRole = useRole('author', '/suggest');
+  
   const breadCrumbs = new Breadcrumbs('create', role, id).generateBreadcrumbs();
 
-  if (!hasRole) {
+  if (role !== "author") {
     return (
       <NoAccess
         title="403 | Доступ ограничен"

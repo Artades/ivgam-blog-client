@@ -1,15 +1,28 @@
 import axios from '@/http/axios';
 import { CreatePostDTO, PostItemProps } from '@/types/post.interface';
+import { SortProps } from '@/types/sort.type';
 import { SuggestDTO } from '@/types/suggest.interface';
 
 export const suggest = async (
   credentials: SuggestDTO,
 ): Promise<{ success: boolean }> => {
-  return (await axios.post('/posts/suggestPost', credentials)).data;
+  return (
+    await axios.post('/posts/suggestPost', credentials, {
+      withCredentials: true,
+    })
+  ).data;
 };
 
-export const getAllPosts = async (): Promise<PostItemProps[]> => {
-  return (await axios.get(`/posts/getAll`, { withCredentials: true })).data;
+export const getAllPosts = async (params: {
+  dateSort?: SortProps;
+  popularSort?: SortProps;
+}): Promise<PostItemProps[]> => {
+  return (
+    await axios.get(
+      `/posts/getAll?dateSort=${params.dateSort}&popularSort=${params.popularSort}`,
+      { withCredentials: true },
+    )
+  ).data;
 };
 
 export const likePost = async (
@@ -53,9 +66,8 @@ export const createPost = async (
 
   const config = {
     headers: { 'Content-Type': 'multipart/form-data' },
-    withCredentials: true
+    withCredentials: true,
   };
-
 
   return (await axios.post(`/posts/createPost`, formData, config)).data;
 };
