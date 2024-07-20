@@ -33,6 +33,7 @@ const Sidebar = () => {
               label={item.label}
             />
           ))}
+        
 
           {authStatus === 'not authenticated' ? (
             <div className="w-full flex flex-col space-y-2 py-10">

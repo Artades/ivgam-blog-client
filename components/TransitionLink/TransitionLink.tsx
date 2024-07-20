@@ -1,5 +1,3 @@
-'use client';
-
 import { handleTransition, sleep } from '@/helpers/transitions';
 
 import Link, { LinkProps } from 'next/link';

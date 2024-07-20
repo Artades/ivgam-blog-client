@@ -14,6 +14,8 @@ import {
   openRegisterModal,
 } from '@/store/slices/authModalsSlice';
 import MenuIcon from './MenuIcon';
+import { BsChatHeart } from 'react-icons/bs';
+import { FaChartArea } from 'react-icons/fa';
 
 export function MobileSheet() {
   const dispatch = useDispatch();
@@ -41,6 +43,14 @@ export function MobileSheet() {
                   unavailable={item.unavailable}
                 />
               ))}
+              <SidebarItem
+              auth={authStatus}
+              unavailable={false}
+              key={"/analytics"}
+              href={"/analytics"}
+              icon={FaChartArea}
+              label={"Статистика"}
+            />
 
               {authStatus === 'not authenticated' ? (
                 <div className="w-full flex flex-col space-y-2 py-10">

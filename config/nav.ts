@@ -1,4 +1,4 @@
-import { BsHouseFill,  BsImage } from 'react-icons/bs';
+import { BsHouseFill,  BsImage, BsChatHeart } from 'react-icons/bs';
 import { FaUser } from 'react-icons/fa';
 
 export const items = [

@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,7 +7,6 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import React from 'react';
-import { usePathname } from 'next/navigation';
 import TransitionLink from '../TransitionLink/TransitionLink';
 
 export interface BreadCrumbsProps {

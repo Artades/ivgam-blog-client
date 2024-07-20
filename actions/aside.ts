@@ -6,7 +6,7 @@ import { API_URL } from '.';
 export const getPopularHashtags = async (): Promise<string[]> => {
  
   const res = await fetch(`${API_URL}/posts/popularHashtags`, {
-    cache: 'no-cache',
+    cache: "force-cache",
   });
 
   return res.json();
@@ -14,7 +14,7 @@ export const getPopularHashtags = async (): Promise<string[]> => {
 
 export const getActiveUsers = async (): Promise<UserProps[]> => {
   const res = await fetch(`${API_URL}/users/activeUsers`, {
-    cache: 'no-cache',
+    cache: 'force-cache',
   });
 
   return res.json();
