@@ -21,6 +21,9 @@ import HashtagInput from './FormUI/HashtagInput';
 import ImageInput from './FormUI/ImageInput';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { topics } from '@/types/topic.type';
+import { Topic } from '@/helpers/topic';
 
 const MdEditorCustom = dynamic(() => import('./MDEditor/MdEditorCustom'), {
   ssr: true,
@@ -83,7 +86,7 @@ export function CreatePostForm() {
         hashtags: hashtagsString ?? '',
       };
 
-      const response = await Api.posts.createPost(updatedCredentials);
+       await Api.posts.createPost(updatedCredentials);
       
       // Reset the form
       createForm.reset();
@@ -98,6 +101,9 @@ export function CreatePostForm() {
     }
   };
 
+
+ 
+ 
   return (
     <Form {...createForm}>
       <form
@@ -126,14 +132,19 @@ export function CreatePostForm() {
             <FormItem>
               <FormLabel className="text-xl">Топик поста</FormLabel>
               <FormControl>
-                <Input
-                  disabled={isLoading}
-                  className=" bg-transparent"
-                  placeholder="Придумайте топик для поста: технологии, природа, медицина"
-                  {...field}
-                />
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <SelectTrigger className=" bg-transparent">
+                    <SelectValue placeholder="Выберите топик" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(topics).map(([key, { value, color }]) => (
+                      <SelectItem key={key} value={key}>
+                        {value}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}

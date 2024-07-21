@@ -13,11 +13,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   
   return (
     <>
-      <div
-        className={cn(
-          'h-screen bg-black',
-        )}
-      >
+      <div className={cn('h-screen bg-black')}>
         <Wrapper>
           <div className="h-full xl:px-30 w-full">
             <div className="w-full grid grid-cols-6 h-full">
@@ -29,7 +25,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               >
                 {children}
               </div>
-              <Aside />
+              <div className="hidden lg:block md:col-span-1 h-full w-full  lg:pl-6 py-7 relative scrollbar-track-zinc-800 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-thumb-rounded-full   max-h-screen  bg-black">
+                <Aside />
+              </div>
             </div>
           </div>
         </Wrapper>

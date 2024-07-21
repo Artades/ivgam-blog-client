@@ -43,14 +43,7 @@ export function MobileSheet() {
                   unavailable={item.unavailable}
                 />
               ))}
-              <SidebarItem
-              auth={authStatus}
-              unavailable={false}
-              key={"/analytics"}
-              href={"/analytics"}
-              icon={FaChartArea}
-              label={"Статистика"}
-            />
+     
 
               {authStatus === 'not authenticated' ? (
                 <div className="w-full flex flex-col space-y-2 py-10">
