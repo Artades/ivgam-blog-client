@@ -9,16 +9,20 @@ import Date from '../../Posts/PostAction/Date';
 import Hashtags from '@/components/Hashtags/Hashtags';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openEditModal } from '@/store/slices/editModalSlice';
 import { EditModal } from '@/components/Modals/EditModal';
+import { RootState } from '@/store';
+import { openNoAccessModal } from '@/store/slices/noAccessModalSlice';
+import { NoAccessModal } from '@/components/Modals/NoAccessModal';
 
 interface PreviewBillboardProps {
   post: PostItemProps;
 }
 const PreviewBillboard: FC<PreviewBillboardProps> = ({ post }) => {
   const { title, topic, hashtags, imageUrl, dateOfCreation: date } = post;
-  const router = useRouter();
+  const { role } = useSelector((state: RootState) => state.user);
+
   const dispatch = useDispatch();
 
   const hashtagsArr = hashtags.split(',');
@@ -31,7 +35,9 @@ const PreviewBillboard: FC<PreviewBillboardProps> = ({ post }) => {
   };
 
   const handleOpenEditModal = () => {
-    dispatch(openEditModal());
+    role !== 'author'
+      ? dispatch(openNoAccessModal())
+      : dispatch(openEditModal());
   };
 
   return (
@@ -75,6 +81,7 @@ const PreviewBillboard: FC<PreviewBillboardProps> = ({ post }) => {
         </div>
       </div>
       <EditModal post={post} />
+      <NoAccessModal />
     </>
   );
 };

@@ -5,6 +5,7 @@ import { loginModalReducer, registerModalReducer } from './slices/authModalsSlic
 import { successModalReducer } from './slices/successModalSlice';
 import userSlice from './slices/userSlice';
 import { editModalReducer } from './slices/editModalSlice';
+import { noAccessModalReducer } from './slices/noAccessModalSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ export const store = configureStore({
     authStatus: authStatusSlice,
     successModal: successModalReducer,
     editModal: editModalReducer,
-    user: userSlice
+    noAccessModal: noAccessModalReducer,
+    user: userSlice,
   },
 });
 
