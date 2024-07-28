@@ -14,7 +14,6 @@ import useAuthentication from '@/hooks/useAuth';
 import { Breadcrumbs } from '@/helpers/breadCrumbs';
 import { RootState } from '@/store';
 import { useSelector } from 'react-redux';
-
 interface PostPreviewProps {
   post: PostItemProps;
 }
@@ -48,13 +47,11 @@ const PostPreview: React.FC<PostPreviewProps> = ({ post }) => {
 
   return (
     <>
+     
       <Helmet pageTitle="Пост"   breadCrumbs={{items: [...breadCrumbs]}} />
       <div className="w-full min-h-screen">
         <PreviewBillboard
-          title={post.title}
-          imageUrl={post.imageUrl}
-          date={post.dateOfCreation}
-          hashtags={post.hashtags}
+         post={post}
         />
         <div className="sm:px-5 py-5 px-3">
           <Wrapper>

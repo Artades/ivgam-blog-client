@@ -4,6 +4,7 @@ import authStatusSlice from './slices/authStatusSlice';
 import { loginModalReducer, registerModalReducer } from './slices/authModalsSlice';
 import { successModalReducer } from './slices/successModalSlice';
 import userSlice from './slices/userSlice';
+import { editModalReducer } from './slices/editModalSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     mobileSheet: MobileSheetSlice,
     authStatus: authStatusSlice,
     successModal: successModalReducer,
+    editModal: editModalReducer,
     user: userSlice
   },
 });

@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { IoOpenOutline } from 'react-icons/io5';
 
 const ReadButton = ({id}: {id: string}) => {
     const router = useRouter();

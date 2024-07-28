@@ -19,7 +19,7 @@ interface SortSelectProps {
 
 export function SortSelect({ sortParams, setSortParams }: SortSelectProps) {
   return (
-    <div className='flex gap-x-2'>
+    <div className="flex gap-x-2">
       <Select
         value={sortParams.dateSort}
         onValueChange={(value) =>
@@ -27,13 +27,13 @@ export function SortSelect({ sortParams, setSortParams }: SortSelectProps) {
         }
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Сортировать по дате" />
+          <SelectValue placeholder="По дате" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Дата</SelectLabel>
-            <SelectItem value="asc">Дата (по возрастанию)</SelectItem>
-            <SelectItem value="desc">Дата (по убыванию)</SelectItem>
+            <SelectItem value="desc">Новые</SelectItem>
+            <SelectItem value="asc">Старые</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
@@ -47,13 +47,13 @@ export function SortSelect({ sortParams, setSortParams }: SortSelectProps) {
         }
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Сортировать по популярности" />
+          <SelectValue placeholder="По популярности" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Популярность</SelectLabel>
-            <SelectItem value="asc">Популярность (по возрастанию)</SelectItem>
-            <SelectItem value="desc">Популярность (по убыванию)</SelectItem>
+            <SelectItem value="desc">Более популярные</SelectItem>
+            <SelectItem value="asc">Менее популярные</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>

@@ -1,5 +1,5 @@
 import axios from '@/http/axios';
-import { CreatePostDTO, PostItemProps } from '@/types/post.interface';
+import { CreatePostDTO, EditPostDTO, PostItemProps } from '@/types/post.interface';
 import { SortProps } from '@/types/sort.type';
 import { SuggestDTO } from '@/types/suggest.interface';
 
@@ -71,3 +71,7 @@ export const createPost = async (
 
   return (await axios.post(`/posts/createPost`, formData, config)).data;
 };
+
+export const editPost = async(credentials: EditPostDTO):Promise<PostItemProps> => {
+  return (await axios.patch(`/posts/edit`, {...credentials}, {withCredentials: true})).data
+}

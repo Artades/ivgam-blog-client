@@ -19,3 +19,5 @@ export type CreatePostDTO = {
   hashtags: string;
   image?: any;
 }
+
+export type EditPostDTO = Omit<CreatePostDTO, "image">;

@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import SimpleMdeReact from 'react-simplemde-editor';
+import dynamic from 'next/dynamic';
 import 'easymde/dist/easymde.min.css';
-import { Editor, Position } from 'codemirror';
+import { Editor } from 'codemirror';
+
+// Динамический импорт SimpleMdeReact
+const SimpleMdeReact = dynamic(() => import('react-simplemde-editor'), { ssr: false });
 
 interface MdEditorCustomProps {
   field: {
