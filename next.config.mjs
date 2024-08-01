@@ -7,6 +7,14 @@ const nextConfig = {
     dev_api: 'http://localhost:4000/api',
     prod_api: 'https://ivgamblogserver.online/api',
   },
+  async rewrites() {
+    return [
+      {
+        source: '/next-api/:path',
+        destination: '/api/:path',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

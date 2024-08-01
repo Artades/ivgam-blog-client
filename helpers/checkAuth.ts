@@ -1,6 +1,6 @@
 export const checkAuth = async () => {
   
-  const authResponse: {id: number, role: string,  message: string, success: boolean} = await fetch("/api/token")
+  const authResponse: {id: number, role: string,  message: string, success: boolean} = await fetch("/next-api/token")
   .then((response) => response.json())
   .then((data) => {
     return data;
