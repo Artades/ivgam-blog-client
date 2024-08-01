@@ -2,7 +2,7 @@
 
 import { NextResponse } from 'next/server';
 
-const PROD_URL = "http://localhost:4000/api";
+const PROD_URL = process.env.prod_api; /* "http://localhost:4000/api"; */ 
 
 export async function GET(req: Request) {
   if (req.method !== 'GET') {

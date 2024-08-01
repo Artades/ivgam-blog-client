@@ -10,7 +10,7 @@ const PostImage: FC<PostImageProps> = ({ id, src }) => {
   const [imageSrc, setImageSrc] = useState<string>('');
 
   useEffect(() => {
-    const generalLink = 'http://localhost:4000/api';
+    const generalLink = process.env.prod_api;
     setImageSrc(`${generalLink}${src}`);
   }, [src]);
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import cookie from 'cookie';
 
-axios.defaults.baseURL = 'http://localhost:4000/api';
+axios.defaults.baseURL = process.env.prod_api;
 
 
 // axios.interceptors.request.use(

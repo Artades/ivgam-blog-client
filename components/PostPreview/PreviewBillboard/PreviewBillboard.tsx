@@ -48,7 +48,7 @@ const PreviewBillboard: FC<PreviewBillboardProps> = ({ post }) => {
           height={500}
           quality={100}
           priority
-          src={`http://localhost:4000/api${imageUrl}`}
+          src={`${process.env.prod_api}${imageUrl}`}
           alt={title}
           className="w-full h-[25rem] object-cover brightness-50"
         />
