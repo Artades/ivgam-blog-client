@@ -1,5 +1,5 @@
 "use server";
-import { API_URL } from '.';
+const API_URL = process.env.prod_api;
 
 export const getPostById = async (postId: string) => {
   const res = await fetch(`${API_URL}/posts/${postId}`, {

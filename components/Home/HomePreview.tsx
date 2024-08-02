@@ -1,19 +1,18 @@
-"use client"
-import Link from 'next/link';
+'use client';
+
 import React from 'react';
 import { Button } from '../ui/button';
-import TypewriterComponent from 'typewriter-effect';
-import { Card } from '../ui/card';
 import { TopicItem } from './TopicItem';
 import { useDispatch } from 'react-redux';
-import { openLoginModal, openRegisterModal } from '@/store/slices/authModalsSlice';
+import {
+  openLoginModal,
+  openRegisterModal,
+} from '@/store/slices/authModalsSlice';
 import useAuthentication from '@/hooks/useAuth';
 
-
 const HomePreview = () => {
-  useAuthentication()
-   const dispatch = useDispatch();
-
+  useAuthentication();
+  const dispatch = useDispatch();
 
   const topics = [
     {

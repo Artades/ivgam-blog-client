@@ -1,7 +1,8 @@
 "use server";
 
 import { UserProps } from '@/types/user.interface';
-import { API_URL } from '.';
+const API_URL = process.env.prod_api;
+
 
 export const getUserById = async (userId: number): Promise<UserProps> => {
   const res = await fetch(`${API_URL}/users/findOneById/${userId}`, {
