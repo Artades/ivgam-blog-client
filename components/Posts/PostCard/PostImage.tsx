@@ -10,8 +10,10 @@ const PostImage: FC<PostImageProps> = ({ id, src }) => {
   const [imageSrc, setImageSrc] = useState<string>('');
 
   useEffect(() => {
+    
     const generalLink = process.env.prod_api;
-    setImageSrc(`${generalLink}${src}`);
+    console.log(generalLink + src);
+    setImageSrc(`https://ivgamblogserver.online/api/${src}`);
   }, [src]);
 
   if (!imageSrc) {
