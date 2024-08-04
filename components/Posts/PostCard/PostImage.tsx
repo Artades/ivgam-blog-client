@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
-
+const IMAGE_API = process.env.api_url; 
 interface PostImageProps {
   id: number;
   src: string;
@@ -11,9 +11,9 @@ const PostImage: FC<PostImageProps> = ({ id, src }) => {
 
   useEffect(() => {
     
-    const generalLink = process.env.prod_api;
+    const generalLink = process.env.api_url;
     console.log(generalLink + src);
-    setImageSrc(`https://ivgamblogserver.online/api/${src}`);
+    setImageSrc(`${IMAGE_API}${src}`);
   }, [src]);
 
   if (!imageSrc) {

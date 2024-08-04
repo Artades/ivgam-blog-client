@@ -1,11 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost', 'ivgamblogserver.online'],
+    // domains: ["a39436.business.ru", "vetervremeni.kz", "mc.yandex.ru"],
+    remotePatterns: [
+      {
+        hostname: '185.170.198.127',
+        hostname: 'localhost',
+      },
+    ],
   },
   env: {
-    dev_api: 'http://localhost:4000/api',
-    prod_api: 'https://ivgamblogserver.online/api',
+    api_url: 'http://localhost:4000/api',
   },
   async rewrites() {
     return [

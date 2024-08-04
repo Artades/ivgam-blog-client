@@ -1,6 +1,6 @@
 import { UserProps } from '@/types/user.interface';
 
-const API_URL = process.env.prod_api;
+const API_URL = process.env.api_url;
 
 
 

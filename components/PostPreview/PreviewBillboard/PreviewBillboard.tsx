@@ -15,6 +15,7 @@ import { EditModal } from '@/components/Modals/EditModal';
 import { RootState } from '@/store';
 import { openNoAccessModal } from '@/store/slices/noAccessModalSlice';
 import { NoAccessModal } from '@/components/Modals/NoAccessModal';
+const IMAGE_API = process.env.api_url; 
 
 interface PreviewBillboardProps {
   post: PostItemProps;
@@ -48,7 +49,7 @@ const PreviewBillboard: FC<PreviewBillboardProps> = ({ post }) => {
           height={500}
           quality={100}
           priority
-          src={`${process.env.prod_api}${imageUrl}`}
+          src={`${IMAGE_API}${imageUrl}`}
           alt={title}
           className="w-full h-[25rem] object-cover brightness-50"
         />

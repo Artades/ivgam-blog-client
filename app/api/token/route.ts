@@ -2,7 +2,7 @@
 
 import { NextResponse } from 'next/server';
 
-const PROD_URL = process.env.prod_api; /* "http://localhost:4000/api"; */ 
+const API_URL = process.env.api_url;
 
 export async function GET(req: Request) {
   if (req.method !== 'GET') {
@@ -13,7 +13,7 @@ export async function GET(req: Request) {
   }
 
   try {
-    const response = await fetch(`${PROD_URL}/auth/verify`, {
+    const response = await fetch(`${API_URL}/auth/verify`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

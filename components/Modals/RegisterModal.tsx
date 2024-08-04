@@ -89,7 +89,7 @@ export function RegisterModal() {
 
        await Api.auth.register(updatedCredentials);
      
-      router.push('/profile-pictire');
+      router.push('/profile-picture');
       dispatch(closeRegisterModal());
       registerForm.reset();
     } catch (error: any) {
