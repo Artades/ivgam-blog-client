@@ -6,11 +6,12 @@ const nextConfig = {
       {
         hostname: '185.170.198.127',
         hostname: 'localhost',
+        hostname: 'ivgamblogserver.online',
       },
     ],
   },
   env: {
-    api_url: 'http://localhost:4000/api',
+    api_url: 'https://ivgamblogserver.online/api',
   },
   async rewrites() {
     return [
