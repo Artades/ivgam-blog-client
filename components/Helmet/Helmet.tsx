@@ -13,7 +13,7 @@ const Helmet: FC<HelmetProps> = ({ pageTitle, breadCrumbs }) => {
 
   return (
     <nav className="z-[1] w-full bg-black/50 backdrop-blur-lg border-b border-b-zinc-800 sticky top-0 ">
-      <div className="w-full px-5 py-5 flex items-start flex-col gap-y-2">
+      <div className="w-full px-5 sm:py-5 py-3 flex items-start flex-col gap-y-2">
         <div className="w-full h-full flex items-center justify-between">
           <h2 className="sm:text-3xl  text-2xl text-pretty font-bold text-white">
             {pageTitle}

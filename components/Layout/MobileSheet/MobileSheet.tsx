@@ -18,7 +18,7 @@ export function MobileSheet() {
 
   return (
     <Sheet>
-      <SheetTrigger asChild className="p-2 bg-zinc-900 rounded-lg">
+      <SheetTrigger asChild className="size-8 p-2 bg-zinc-900 rounded-lg">
         <MenuIcon />
       </SheetTrigger>
       <SheetContent side={'left'}>

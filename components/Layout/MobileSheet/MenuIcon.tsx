@@ -6,7 +6,7 @@ const MenuIcon = forwardRef<
   React.HTMLAttributes<HTMLSpanElement>
 >((props, ref) => (
   <span ref={ref} {...props}>
-    <HiOutlineMenuAlt2Icon className="size-7 text-white" />
+    <HiOutlineMenuAlt2Icon className=" w-full h-full text-white" />
   </span>
 ));
 
