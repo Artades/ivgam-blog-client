@@ -1,7 +1,6 @@
 'use client';
 import { handleTransition } from '@/helpers/transitions';
 import { RootState } from '@/store';
-import { openLoginModal } from '@/store/slices/authModalsSlice';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useCallback } from 'react';
 import { IconType } from 'react-icons';
@@ -25,13 +24,12 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   alert,
   unavailable,
 }) => {
-  const dispatch = useDispatch();
   const router = useRouter();
   const { id } = useSelector((state: RootState) => state.user);
 
   const handleClick = useCallback(() => {
     if (auth === 'not authenticated') {
-      dispatch(openLoginModal());
+        router.push("/auth/login")
     } else if (href) {
       if (href === '/profile') {
         router.push(`${href}/${id}`);
@@ -41,7 +39,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         return;
       }
     }
-  }, [router, href, auth, dispatch, id, unavailable]);
+  }, [router, href, auth, id, unavailable]);
 
   const pathname = usePathname();
 

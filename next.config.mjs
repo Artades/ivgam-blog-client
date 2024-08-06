@@ -4,9 +4,13 @@ const nextConfig = {
     // domains: ["a39436.business.ru", "vetervremeni.kz", "mc.yandex.ru"],
     remotePatterns: [
       {
-        hostname: '185.170.198.127',
-        hostname: 'localhost',
         hostname: 'ivgamblogserver.online',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: "4000",
+        pathname: '/api/**',
       },
     ],
   },

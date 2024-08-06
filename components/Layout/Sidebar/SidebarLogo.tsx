@@ -1,8 +1,7 @@
 'use client';
 import TransitionLink from '@/components/TransitionLink/TransitionLink';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { MdNotes, MdOutlineEditNote } from 'react-icons/md';
+import {  MdOutlineEditNote } from 'react-icons/md';
 
 const SidebarLogo = () => {
   const router = useRouter();

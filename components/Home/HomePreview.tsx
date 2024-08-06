@@ -3,17 +3,10 @@
 import React from 'react';
 import { Button } from '../ui/button';
 import { TopicItem } from './TopicItem';
-import { useDispatch } from 'react-redux';
-import {
-  openLoginModal,
-  openRegisterModal,
-} from '@/store/slices/authModalsSlice';
-import useAuthentication from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 const HomePreview = () => {
-  useAuthentication();
-  const dispatch = useDispatch();
-
+  const router = useRouter();
   const topics = [
     {
       id: 1,
@@ -47,14 +40,14 @@ const HomePreview = () => {
           <Button
             size={'lg'}
             variant={'default'}
-            onClick={() => dispatch(openLoginModal())}
+            onClick={() => router.push('/auth/login')}
           >
             Войти
           </Button>
           <Button
             size={'lg'}
             variant={'outline'}
-            onClick={() => dispatch(openRegisterModal())}
+            onClick={() => router.push('/auth/register')}
           >
             Создать аккаунт
           </Button>

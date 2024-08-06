@@ -1,21 +1,18 @@
+'use client';
+
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SidebarItem from './SidebarItem';
 import SidebarLogo from './SidebarLogo';
 import { Button } from '@/components/ui/button';
 import { items } from '@/config/nav';
-import {
-  openLoginModal,
-  openRegisterModal,
-} from '@/store/slices/authModalsSlice';
+
 import { RootState } from '@/store';
 import LogoutButton from './LogoutButton';
 import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
-
   const { authStatus, role } = useSelector((state: RootState) => state.user);
 
   return (
@@ -33,21 +30,20 @@ const Sidebar = () => {
               label={item.label}
             />
           ))}
-        
 
           {authStatus === 'not authenticated' ? (
             <div className="w-full flex flex-col space-y-2 py-10">
               <Button
                 size={'lg'}
                 variant={'default'}
-                onClick={() => dispatch(openLoginModal())}
+                onClick={() => router.push('/auth/login')}
               >
                 Войти
               </Button>
               <Button
                 size={'lg'}
                 variant={'outline'}
-                onClick={() => dispatch(openRegisterModal())}
+                onClick={() => router.push('/auth/register')}
               >
                 Создать аккаунт
               </Button>

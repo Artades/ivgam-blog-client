@@ -1,6 +1,5 @@
 'use client';
 import { Button } from '@/components/ui/button';
-
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import SidebarItem from '../Sidebar/SidebarItem';
 import SidebarLogo from '../Sidebar/SidebarLogo';
@@ -9,13 +8,7 @@ import LogoutButton from '../Sidebar/LogoutButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { RootState } from '@/store';
-import {
-  openLoginModal,
-  openRegisterModal,
-} from '@/store/slices/authModalsSlice';
 import MenuIcon from './MenuIcon';
-import { BsChatHeart } from 'react-icons/bs';
-import { FaChartArea } from 'react-icons/fa';
 
 export function MobileSheet() {
   const dispatch = useDispatch();
@@ -43,21 +36,20 @@ export function MobileSheet() {
                   unavailable={item.unavailable}
                 />
               ))}
-     
 
               {authStatus === 'not authenticated' ? (
                 <div className="w-full flex flex-col space-y-2 py-10">
                   <Button
                     size={'lg'}
                     variant={'default'}
-                    onClick={() => dispatch(openLoginModal())}
+                    onClick={() => router.push('/auth/login')}
                   >
                     Войти
                   </Button>
                   <Button
                     size={'lg'}
                     variant={'outline'}
-                    onClick={() => dispatch(openRegisterModal())}
+                    onClick={() => router.push('/auth/register')}
                   >
                     Создать аккаунт
                   </Button>
