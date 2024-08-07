@@ -9,13 +9,14 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: "4000",
+        port: '4000',
         pathname: '/api/**',
       },
     ],
   },
   env: {
     api_url: 'https://ivgamblogserver.online/api',
+    client_url: 'https://ivgamblogserver.online',
   },
   async rewrites() {
     return [

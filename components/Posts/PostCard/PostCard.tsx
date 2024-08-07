@@ -61,14 +61,7 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
       />
     );
   }
-  const getFullUrl = () => {
-    if (typeof window !== 'undefined') {
-      const fullUrl = window.location.href;
-      return fullUrl;
-    }
-    return null;
-  };
-  const shareLink = getFullUrl() + `/${post.id}`;
+
   return (
     <Card
       className={`w-full   rounded-lg border border-zinc-700  h-[500px] bg-blackz`}
@@ -92,7 +85,7 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
             <article className="w-full flex items-center justify-between">
               <div className="flex space-x-2">
                 <ReadButton id={post.id.toString()} />
-                <ShareButton />
+                <ShareButton postId={post.id}/>
               </div>
 
               <FavoriteButton
@@ -110,7 +103,7 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
           </div>
         </div>
       </div>
-      <ShareModal postLink={shareLink ?? ""} />
+      <ShareModal  />
     </Card>
   );
 };

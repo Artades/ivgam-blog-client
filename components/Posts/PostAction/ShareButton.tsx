@@ -1,19 +1,21 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
-import { openShareModal } from '@/store/slices/shareModalSlice';
+import { openShareModal, setShareLink } from '@/store/slices/shareModalSlice';
 import React from 'react';
-import { BsShare, BsShareFill } from 'react-icons/bs';
 import { IoShareOutline } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 
-const ShareButton = () => {
+const ShareButton = ({ postId }: { postId: number }) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
+    dispatch(setShareLink(`https://ivgablogserver.online/posts/${postId}`));
     dispatch(openShareModal());
   };
   return (
     <Button
-    onClick={handleClick}
+      onClick={handleClick}
       variant={'default'}
       className="flex items-center justify-center gap-x-3"
     >
