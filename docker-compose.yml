@@ -1,7 +1,8 @@
 version: '3.8'
 
 services:
-  app:
+  web:
+    image: ivgam-blog-client
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,10 +10,9 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-    volumes:
-      - .:/app  # Optional: for local development to sync changes
-    restart: always
+    networks:
+      - app-network
 
-# Optional volume section if you need persistent storage
-# volumes:
-#   node_modules:
+networks:
+  app-network:
+    driver: bridge

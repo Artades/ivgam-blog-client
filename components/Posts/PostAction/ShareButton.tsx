@@ -10,7 +10,7 @@ const ShareButton = ({ postId }: { postId: number }) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(setShareLink(`https://ivgablogserver.online/posts/${postId}`));
+    dispatch(setShareLink(`https://ivgamblogserver.online/posts/${postId}`));
     dispatch(openShareModal());
   };
   return (
