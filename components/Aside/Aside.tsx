@@ -8,7 +8,7 @@ const Aside = async () => {
   const users = await Actions.aside.getActiveUsers();
     return (
      
-        <div className="w-full flex flex-col items-center gap-y-5">
+        <div className=" bg-transparent w-full flex flex-col items-center gap-y-5">
           <FilterUsers  users={users}/>
           <Hashtags hashtags={hashtags} flexDir='flex-col' position='aside' />
         </div>

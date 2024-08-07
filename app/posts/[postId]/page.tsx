@@ -2,6 +2,8 @@ import PostPreview from '@/components/PostPreview/PostPreview';
 import { Metadata, ResolvingMetadata } from 'next/types';
 import React from 'react';
 import * as Actions from '@/actions';
+import Script from 'next/script';
+const IMAGE_API = process.env.api_url;
 
 type Props = {
   params: { postId: string };
@@ -13,13 +15,28 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const id = params.postId;
 
-  const previousImages = (await parent).openGraph?.images || [];
   const post = await Actions.posts.getPostById(id);
 
+  const metaTitle = `${post.title} | Ivgam Blog`;
+  const metaDescription = `Читать пост ${post.title} в блоге Ivgam. Читайте и предлагайте свои собственные статьи.`;
+
+  const metaImage = `${IMAGE_API}${post.image}`;
   return {
-    title: post.title,
+    title: metaTitle,
+    description: metaDescription,
     openGraph: {
-      images: ['/some-specific-page-image.jpg', ...previousImages],
+      title: metaTitle,
+      description: metaDescription,
+      images: [metaImage],
+      url: `https://ivgamblogserver.online/posts/${id}`, 
+      siteName: 'Ivgam Blog',
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: metaTitle,
+      description: metaDescription,
+      images: [metaImage],
     },
   };
 }
@@ -27,8 +44,40 @@ export async function generateMetadata(
 export default async function PostPage({ params }: Props) {
   const id = params.postId;
   const post = await Actions.posts.getPostById(id);
+   const metaDescription = `Читать пост ${post.title} в блоге Ivgam. Читайте и предлагайте свои собственные статьи.`;
+    const metaImage = `${IMAGE_API}${post.image}`;
+
+  const jsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description:  metaDescription,
+    image: [metaImage],
+    author: {
+      '@type': 'Person',
+      name: "Artyom Galay",
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Ivgam Blog',
+      logo: {
+        '@type': 'ImageObject',
+        url: '/vercel.svg', // Replace with your logo URL
+      },
+    },
+    datePublished: post.dateOfCreation,
+    dateModified: post.dateOfUpdation || post.dateOfCreation,
+  });
 
   return (
-    <PostPreview post={post} />
-  )
+    <>
+      <PostPreview post={post} />
+      <Script
+        strategy="beforeInteractive"
+        type="application/ld+json"
+        id="json-ld"
+        dangerouslySetInnerHTML={{ __html: jsonLd }}
+      />
+    </>
+  );
 }

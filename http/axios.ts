@@ -3,10 +3,6 @@ import cookie from 'cookie';
 
 axios.defaults.baseURL = process.env.api_url;
 
-
-// axios.interceptors.request.use(
-//   (context) => {}
-// ))
 axios.interceptors.request.use(async (config) => {
   if (typeof window !== 'undefined') {
     const cookies = cookie.parse(document.cookie);

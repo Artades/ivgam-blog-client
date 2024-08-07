@@ -165,7 +165,7 @@ export function Register() {
               </Button>
               <div className="text-sm text-gray-400">
                 Уже есть аккаунт?{' '}
-                <Link href="/login" className="text-zinc-700 hover:underline">
+                <Link href="/auth/login" className="text-zinc-700 hover:underline">
                   Войти
                 </Link>
               </div>
