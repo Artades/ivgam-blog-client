@@ -43,6 +43,8 @@
     transition-property: opacity, background, transform, filter;
     transition-timing-function: ease-in-out;
     transition-duration: 500ms;
+    height: 100vh;
+    overflow: hidden;
   }
 }
 

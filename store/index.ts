@@ -6,6 +6,7 @@ import { successModalReducer } from './slices/successModalSlice';
 import userSlice from './slices/userSlice';
 import { editModalReducer } from './slices/editModalSlice';
 import { noAccessModalReducer } from './slices/noAccessModalSlice';
+import { shareModalReducer } from './slices/shareModalSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     mobileSheet: MobileSheetSlice,
     authStatus: authStatusSlice,
     successModal: successModalReducer,
+    shareModal: shareModalReducer,
     editModal: editModalReducer,
     noAccessModal: noAccessModalReducer,
     user: userSlice,

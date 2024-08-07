@@ -20,7 +20,7 @@ export async function generateMetadata(
   const metaTitle = `${post.title} | Ivgam Blog`;
   const metaDescription = `Читать пост ${post.title} в блоге Ivgam. Читайте и предлагайте свои собственные статьи.`;
 
-  const metaImage = `${IMAGE_API}${post.image}`;
+  const metaImage = `${IMAGE_API}${post.imageUrl}`;
   return {
     title: metaTitle,
     description: metaDescription,
@@ -28,7 +28,7 @@ export async function generateMetadata(
       title: metaTitle,
       description: metaDescription,
       images: [metaImage],
-      url: `https://ivgamblogserver.online/posts/${id}`, 
+      url: `https://ivgamblogserver.online/posts/${id}`,
       siteName: 'Ivgam Blog',
       type: 'article',
     },
@@ -44,18 +44,18 @@ export async function generateMetadata(
 export default async function PostPage({ params }: Props) {
   const id = params.postId;
   const post = await Actions.posts.getPostById(id);
-   const metaDescription = `Читать пост ${post.title} в блоге Ivgam. Читайте и предлагайте свои собственные статьи.`;
-    const metaImage = `${IMAGE_API}${post.image}`;
+  const metaDescription = `Здесь я делюсь своими историями, идеями и приключениями. Но что еще круче – вы тоже можете стать частью этого процесса! Предложите свою идею для статьи, и мы с удовольствием воплотим ее в жизнь`;
+  const metaImage = `${IMAGE_API}${post.imageUrl}`;
 
   const jsonLd = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
-    description:  metaDescription,
+    description: metaDescription,
     image: [metaImage],
     author: {
       '@type': 'Person',
-      name: "Artyom Galay",
+      name: 'Artyom Galay',
     },
     publisher: {
       '@type': 'Organization',

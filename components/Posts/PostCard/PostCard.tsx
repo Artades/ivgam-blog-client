@@ -16,6 +16,8 @@ import ShareButton from '../PostAction/ShareButton';
 import Date from '../PostAction/Date';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import ShareModal from '@/components/Modals/ShareModal';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface PostCardProps {
   postId: number;
@@ -42,7 +44,7 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
     enabled: !!id,
   });
 
-  const user = userData ?? {} as UserProps;
+  const user = userData ?? ({} as UserProps);
   const userFavorites = user?.favorites ?? [];
 
   const isLiked = useLike({ postId: post?.id, userFavorites });
@@ -59,7 +61,14 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
       />
     );
   }
-  // console.log("Data: ", post)
+  const getFullUrl = () => {
+    if (typeof window !== 'undefined') {
+      const fullUrl = window.location.href;
+      return fullUrl;
+    }
+    return null;
+  };
+  const shareLink = getFullUrl() + `/${post.id}`;
   return (
     <Card
       className={`w-full   rounded-lg border border-zinc-700  h-[500px] bg-blackz`}
@@ -97,11 +106,11 @@ const PostCard: FC<PostCardProps> = ({ postId }) => {
               <ViewState viewsCount={post.views} />
 
               <Date timestamp={post.dateOfCreation} />
-
             </article>
           </div>
         </div>
       </div>
+      <ShareModal postLink={shareLink ?? ""} />
     </Card>
   );
 };
