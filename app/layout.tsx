@@ -52,6 +52,12 @@ export default function RootLayout({
     <RQueryProvider>
       <StoreProvider>
         <html lang="en">
+          <head>
+            <meta
+              name="google-site-verification"
+              content="p7AgY_QQrYt_IlaxHjDF8MsJlt1-bppY9aosOtsn6zI"
+            />
+          </head>
           <body className={nunito.className}>
             <Layout>{children}</Layout>
             <Toaster />
