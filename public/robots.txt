@@ -1,0 +1,21 @@
+User-agent: *
+
+Disallow: /create
+Disallow: /suggest
+
+Disallow: /profile/*
+
+Disallow: /auth/login
+Disallow: /auth/register
+
+Disallow: /500
+
+Disallow: /not-found
+
+Disallow: /_next
+
+Disallow: /_next/*
+
+Sitemap: https://ivgamblogserver.online/sitemap.xml
+
+Crawl-delay: 10
