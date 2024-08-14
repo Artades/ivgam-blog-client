@@ -4,7 +4,7 @@ const nextConfig = {
     // domains: ["a39436.business.ru", "vetervremeni.kz", "mc.yandex.ru"],
     remotePatterns: [
       {
-        hostname: 'ivgamblogserver.online',
+        hostname: 'ivgam.blog',
       },
       {
         protocol: 'http',
@@ -15,8 +15,8 @@ const nextConfig = {
     ],
   },
   env: {
-    api_url: 'https://ivgamblogserver.online/api',
-    client_url: 'https://ivgamblogserver.online',
+    api_url: 'https://ivgam.blog/api',
+    client_url: 'https://ivgam.blog',
   },
   async rewrites() {
     return [
