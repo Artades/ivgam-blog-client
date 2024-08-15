@@ -17,7 +17,6 @@ import Date from '../PostAction/Date';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import ShareModal from '@/components/Modals/ShareModal';
-import { usePathname, useRouter } from 'next/navigation';
 
 interface PostCardProps {
   postId: number;

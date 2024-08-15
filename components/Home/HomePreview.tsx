@@ -4,6 +4,7 @@ import React from 'react';
 import { Button } from '../ui/button';
 import { TopicItem } from './TopicItem';
 import { useRouter } from 'next/navigation';
+import { MessageCircleCode } from 'lucide-react';
 
 const HomePreview = () => {
   const router = useRouter();
@@ -29,9 +30,12 @@ const HomePreview = () => {
     <div className="w-full  py-10 md:p-10 p-5 flex flex-col items-center justify-center bg-grid relative">
       {/* <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black  [mask-image:radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.8))]"></div> */}
       <div className="w-full text-white font-bold text-center gap-y-10 flex flex-col items-center justify-center h-full">
-        <h1 className="text-3xl md:text-4xl font-extrabold">Ivgam Blog</h1>
+        <div className="flex flex-col items-center space-y-3">
+          <MessageCircleCode className="size-20 text-zinc-300"  />
+          <h1 className="text-3xl md:text-4xl font-extrabold ">Ivgam Blog</h1>
+        </div>
 
-        <div className="text-sm md:text-xl font-light text-zinc-400 px-10">
+        <div className="text-sm md:text-lg font-light text-zinc-400 px-10">
           Здесь я делюсь своими историями, идеями и приключениями. Но что еще
           круче – вы тоже можете стать частью этого процесса! Предложите свою
           идею для статьи, и мы с удовольствием воплотим ее в жизнь.
