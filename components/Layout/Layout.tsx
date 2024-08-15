@@ -32,11 +32,15 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <div className="bg-black" style={{ height: `${screenHeight}px` }}>
         <Wrapper>
           <div className="h-full xl:px-30 w-full">
-            <div className="w-full grid grid-cols-6 h-full">
+            <div
+              className="w-full grid grid-cols-6 "
+              style={{ height: `${screenHeight}px` }}
+            >
               <Sidebar />
               <div
+                style={{ height: `${screenHeight}px` }}
                 className={cn(
-                  'w-full h-full relative scrollbar-track-zinc-800 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-thumb-rounded-full overflow-auto col-span-6 lg:col-span-4 lg:border-x-[1px] border-neutral-800 bg-black',
+                  'w-full  relative scrollbar-track-zinc-800 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-thumb-rounded-full overflow-auto col-span-6 lg:col-span-4 lg:border-x-[1px] border-neutral-800 bg-black',
                 )}
               >
                 {children}

@@ -15,7 +15,7 @@ const nextConfig = {
     ],
   },
   env: {
-    api_url: 'https://ivgam.blog/api',
+    api_url: 'http://localhost:4000/api',
     client_url: 'https://ivgam.blog',
   },
   async rewrites() {
