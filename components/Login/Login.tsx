@@ -137,7 +137,7 @@ export function Login() {
               )}
             </Button>
             <div className="text-sm text-gray-400">
-              Нет аккаунта?{' '}
+              Еще нет аккаунта?{' '}
               <Link href="/auth/register" className="text-zinc-600 underline">
                 Создать
               </Link>
