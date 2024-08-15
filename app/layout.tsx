@@ -57,6 +57,10 @@ export default function RootLayout({
               name="google-site-verification"
               content="p7AgY_QQrYt_IlaxHjDF8MsJlt1-bppY9aosOtsn6zI"
             />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+            />
           </head>
           <body className={nunito.className}>
             <Layout>{children}</Layout>

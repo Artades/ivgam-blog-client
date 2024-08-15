@@ -4,7 +4,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as Api from "@/api";
-import React, { Dispatch, FC, SetStateAction, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { CreateCommentDto } from '@/types/comment.interface';
@@ -54,6 +54,24 @@ const CommentInput: FC<CommentInputProps> = ({ postId, userId, setUpdate }) => {
       setLoading(false);
     }
   };
+ useEffect(() => {
+   const textarea = document.querySelector('textarea');
+
+   if (textarea) {
+     const handleFocus = () => {
+       window.scrollTo({
+         top: textarea.offsetTop - 100, // Настройте смещение прокрутки по необходимости
+         behavior: 'smooth',
+       });
+     };
+
+     textarea.addEventListener('focus', handleFocus);
+
+     return () => {
+       textarea.removeEventListener('focus', handleFocus);
+     };
+   }
+ }, []);
   return (
 
     <Form {...commentForm}>
