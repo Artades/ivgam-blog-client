@@ -33,7 +33,7 @@ COPY --from=builder /app/package.json ./package.json
 EXPOSE 3000
 
 # Устанавливаем переменную окружения для запуска в режиме production
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 # Запускаем приложение
 CMD ["npm", "run", "start"]
