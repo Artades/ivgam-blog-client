@@ -49,7 +49,7 @@ const PostPreview: React.FC<PostPreviewProps> = ({ post }) => {
     <>
      
       <Helmet pageTitle="Пост"   breadCrumbs={{items: [...breadCrumbs]}} />
-      <div className="w-full min-h-screen">
+      <div className="w-full">
         <PreviewBillboard
          post={post}
         />
